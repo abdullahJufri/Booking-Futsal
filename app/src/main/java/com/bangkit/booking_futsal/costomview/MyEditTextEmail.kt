@@ -85,6 +85,7 @@ class MyEditTextEmail : AppCompatEditText, View.OnTouchListener {
         )
     }
 
+
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
         if (compoundDrawables[2] != null) {
             val clearButtonStart: Float
