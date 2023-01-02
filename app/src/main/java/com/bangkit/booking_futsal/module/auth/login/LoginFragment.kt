@@ -1,23 +1,19 @@
 package com.bangkit.booking_futsal.module.auth.login
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import com.bangkit.booking_futsal.MainActivity
 import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.databinding.FragmentLoginBinding
 import com.bangkit.booking_futsal.module.auth.AuthViewmodels
 import com.bangkit.booking_futsal.module.auth.register.RegisterFragment
-import com.bangkit.booking_futsal.utils.LoginCallbackString
+import com.bangkit.booking_futsal.utils.AuthCallbackString
 import com.bangkit.booking_futsal.utils.SettingPreferences
-import com.bangkit.booking_futsal.utils.showLoading
 
 
 class LoginFragment : Fragment() {
@@ -65,20 +61,24 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
-            viewModel.login(email, password, object : LoginCallbackString {
+            viewModel.login(email, password, object : AuthCallbackString {
                 override fun onResponse(success: String, message: String) {
                     Toast.makeText(context, message, Toast.LENGTH_SHORT)
                         .show()
                 }
             })
             viewModel.user.observe(viewLifecycleOwner) { user ->
-                user.data?.id?.let { it1 -> user.data.roles?.let { it2 ->
-                    pref.setUserLogin(it1.toInt(), email,
-                        it2
-                    )
-                } }
+                user.data?.id?.let { it1 ->
+                    user.data.roles?.let { it2 ->
+                        pref.setUserLogin(
+                            it1.toInt(), email,
+                            it2
+                        )
+                    }
+                }
 //                Toast.makeText(context, "email : $email id: ${user.data?.id} roles: ${user.data?.roles}", Toast.LENGTH_SHORT)
 //                    .show()
+                println("email : $email id: ${user.data?.id} roles: ${user.data?.roles}")
 //                val intent = Intent(this@LoginActivity, MainActivity::class.java)
 //                startActivity(intent)
             }

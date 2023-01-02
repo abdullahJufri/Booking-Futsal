@@ -1,11 +1,10 @@
 package com.bangkit.booking_futsal.utils
 
 import android.content.Context
-import android.content.Intent
 import android.view.View
 import android.widget.Toast
 
-interface LoginCallbackString {
+interface AuthCallbackString {
     fun onResponse(success: String, message: String,)
 }
 
