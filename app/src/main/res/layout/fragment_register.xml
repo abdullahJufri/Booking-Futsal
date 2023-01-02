@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.register.RegisterFragment">
+    tools:context=".module.auth.register.RegisterFragment">
 
     <com.bangkit.booking_futsal.costomview.MyEditTextName
         android:id="@+id/edt_name"

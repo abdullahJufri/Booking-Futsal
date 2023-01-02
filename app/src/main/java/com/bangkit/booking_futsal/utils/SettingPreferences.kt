@@ -1,128 +1,36 @@
 package com.bangkit.booking_futsal.utils
 
-import android.util.Log
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
+import android.content.Context
+import android.content.SharedPreferences
+import com.bangkit.booking_futsal.module.auth.login.LoginFragment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class SettingPreferences private constructor(private val dataStore: DataStore<Preferences>) {
+class SettingPreferences(context: Context) {
+    val preference: SharedPreferences = context.getSharedPreferences(LOGIN_SESSION, Context.MODE_PRIVATE)
 
-//    fun getUser(): Flow<Auth> {
-//        return dataStore.data.map {
-//            Auth(
-//                it[NAME_KEY] ?: "",
-//                it[EMAIL_KEY] ?: "",
-//                it[PASSWORD_KEY] ?: "",
-//                it[USERID_KEY] ?: "",
-//                it[ROLES_KEY] ?: "",
-//                it[STATE_KEY] ?: false
-//            )
-//        }
-//    }
-//
-//    suspend fun saveUser(auth: Auth) {
-//        dataStore.edit {
-//            it[NAME_KEY] = auth.name
-//            it[EMAIL_KEY] = auth.email
-//            it[PASSWORD_KEY] = auth.password
-//            it[USERID_KEY] = auth.userId
-//            it[ROLES_KEY] = auth.roles
-//            it[STATE_KEY] = auth.isLogin
-//
-//        }
-//    }
-//
-//    suspend fun logout() {
-//        dataStore.edit {
-//            it[STATE_KEY] = false
-//            it[NAME_KEY] = ""
-//            it[EMAIL_KEY] = ""
-//            it[USERID_KEY] = ""
-//            it[ROLES_KEY] = ""
-//            it[PASSWORD_KEY] = ""
-//        }
-//    }
-
-
-    fun isFirstTime(): Flow<Boolean> = dataStore.data.map {
-        it[STATE_KEY] ?: true
+    fun setUserLogin( id: Int, email: String, roles: String ) {
+        preference.edit()
+            .putString(EMAIL, email)
+            .putInt(ID, id)
+            .putString(Roles, roles)
+            .apply()
     }
 
-    suspend fun setIsFirstTime(firstTime: Boolean) {
-        dataStore.edit {
-            it[STATE_KEY] = firstTime
-        }
-    }
-
-
-    fun getUserID(): Flow<String> = dataStore.data.map {
-        it[USERID_KEY] ?: DEFAULT_VALUE
-    }
-
-    suspend fun setUserID(id: String) {
-        dataStore.edit {
-            it[USERID_KEY] = id
-            Log.e("SettingPreference", "user ID saved! saveUserToken: $id")
-        }
-    }
-
-    fun getUserName(): Flow<String> = dataStore.data.map {
-        it[NAME_KEY] ?: DEFAULT_VALUE
-    }
-
-    suspend fun setUserName(name: String) {
-        dataStore.edit {
-            it[NAME_KEY] = name
-        }
-    }
-
-    fun getUserEmail(): Flow<String> = dataStore.data.map {
-        it[EMAIL_KEY] ?: DEFAULT_VALUE
-    }
-
-    suspend fun setUserEmail(email: String) {
-        dataStore.edit {
-            it[EMAIL_KEY] = email
-        }
-    }
-
-    fun getUserRoles(): Flow<String> = dataStore.data.map {
-        it[ROLES_KEY] ?: DEFAULT_VALUE
-    }
-
-    suspend fun setUserRoles(email: String) {
-        dataStore.edit {
-            it[ROLES_KEY] = email
-        }
-    }
-
-    suspend fun clearCache() {
-        dataStore.edit {
-            it.clear()
-        }
+    fun deleteUserLogin() {
+        preference.edit()
+            .putString(EMAIL, "")
+            .putInt(ID, 0)
+            .putString(Roles, "")
+            .putString(PATH, "")
+            .apply()
     }
 
     companion object {
-        @Volatile
-        private var INSTANCE: SettingPreferences? = null
-        const val DEFAULT_VALUE = "not_set_yet"
-        private val NAME_KEY = stringPreferencesKey("name")
-        private val EMAIL_KEY = stringPreferencesKey("email")
-        private val PASSWORD_KEY = stringPreferencesKey("password")
-        private val USERID_KEY = stringPreferencesKey("userId")
-        private val ROLES_KEY = stringPreferencesKey("roles")
-        private val STATE_KEY = booleanPreferencesKey("state")
-
-        fun getInstance(dataStore: DataStore<Preferences>): SettingPreferences {
-            return INSTANCE ?: synchronized(this) {
-                val instance = SettingPreferences(dataStore)
-                INSTANCE = instance
-                instance
-            }
-        }
+        const val LOGIN_SESSION = "login_session"
+        const val EMAIL = "email"
+        const val ID = "id"
+        const val Roles = "roles"
+        const val PATH = "path"
     }
 }

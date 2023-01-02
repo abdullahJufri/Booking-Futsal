@@ -1,4 +1,4 @@
-package com.bangkit.booking_futsal.ui.auth.register
+package com.bangkit.booking_futsal.module.auth.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
