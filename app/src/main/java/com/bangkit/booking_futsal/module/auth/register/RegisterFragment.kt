@@ -22,14 +22,20 @@ import com.bangkit.booking_futsal.utils.AuthCallbackString
 import com.bangkit.booking_futsal.utils.SettingPreferences
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class RegisterFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-//    private lateinit var pref: SettingPreferences
-//    private val viewModel: AuthViewmodels by viewModels()
     private lateinit var viewmodel: AuthViewmodels
+
+
+    private fun setupViewModel() {
+        viewmodel = ViewModelProvider(
+            this,
+            ViewModelFactory(SettingPreferences.getInstance(requireContext().dataStore), requireActivity().application)
+        )[AuthViewmodels::class.java]
+    }
 
 
     override fun onCreateView(
@@ -42,13 +48,6 @@ class RegisterFragment : Fragment() {
         return binding.root
 
 
-    }
-
-    private fun setupViewModel() {
-        viewmodel = ViewModelProvider(
-            this,
-            ViewModelFactory(SettingPreferences.getInstance(requireContext().dataStore), requireActivity().application)
-        )[AuthViewmodels::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
