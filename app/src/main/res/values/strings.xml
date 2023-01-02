@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Booking-Futsal</string>
+    <string name="invalid_email">Invalid format email</string>
+    <string name="invalid_password"><![CDATA[![CDATA[Password must be >= 6 characters]]]]></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Welcome To Booking Futsal App</string>
+    <string name="email">email@example.com</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="passwordValid">Password must be more than 6</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+</resources>
