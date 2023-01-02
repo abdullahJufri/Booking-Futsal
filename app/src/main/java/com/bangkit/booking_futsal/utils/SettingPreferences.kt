@@ -1,15 +1,40 @@
 package com.bangkit.booking_futsal.utils
 
-import android.content.Context
-import android.content.SharedPreferences
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.bangkit.booking_futsal.data.remote.model.Auth
-import com.bangkit.booking_futsal.module.auth.login.LoginFragment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class SettingPreferences(context: Context) {
-    val preference: SharedPreferences = context.getSharedPreferences(LOGIN_SESSION, Context.MODE_PRIVATE)
+class SettingPreferences private constructor(private val dataStore: DataStore<Preferences>) {
 
+    private val key = stringPreferencesKey("user_token")
+
+    fun getUser(): Flow<Auth> {
+        return dataStore.data.map {
+            Auth(
+                it[NAME_KEY] ?: "",
+                it[EMAIL_KEY] ?: "",
+                it[ID_KEY] ?: "",
+                it[ROLES_KEY] ?: "",
+                it[STATE_KEY] ?: false
+            )
+        }
+    }
+
+    suspend fun saveUser(auth: Auth) {
+        dataStore.edit {
+            it[NAME_KEY] = auth.name
+            it[EMAIL_KEY] = auth.email
+            it[ID_KEY] = auth.id
+            it[ROLES_KEY] = auth.roles
+            it[STATE_KEY] = auth.isLogin
+
+        }
+    }
 
 //    fun getUser(): Flow<Auth> {
 //        return preference.data.map {
@@ -24,29 +49,49 @@ class SettingPreferences(context: Context) {
 //        }
 //    }
 
-    fun setUserLogin( id: Int, email: String, roles: String ) {
-        preference.edit()
-            .putString(EMAIL, email)
-            .putInt(ID, id)
-            .putString(Roles, roles)
-            .apply()
-    }
+//    fun getUserLogin( id: Int, email: String, roles: String ) {
+//        preference.edit()
+//            .putString(EMAIL, email)
+//            .putInt(ID, id)
+//            .putString(Roles, roles)
+//            .apply()
+//    }
+//
 
 
-    fun deleteUserLogin() {
-        preference.edit()
-            .putString(EMAIL, "")
-            .putInt(ID, 0)
-            .putString(Roles, "")
-            .putString(PATH, "")
-            .apply()
-    }
+//    fun setUserLogin( id: Int, email: String, roles: String ) {
+//        preference.edit()
+//            .putString(EMAIL, email)
+//            .putInt(ID, id)
+//            .putString(Roles, roles)
+//            .apply()
+//    }
+//
+//
+//    fun deleteUserLogin() {
+//        preference.edit()
+//            .putString(EMAIL, "")
+//            .putInt(ID, 0)
+//            .putString(Roles, "")
+//            .putString(PATH, "")
+//            .apply()
+//    }
 
     companion object {
-        const val LOGIN_SESSION = "login_session"
-        const val EMAIL = "email"
-        const val ID = "id"
-        const val Roles = "roles"
-        const val PATH = "path"
+        @Volatile
+        private var INSTANCE: SettingPreferences? = null
+        private val NAME_KEY = stringPreferencesKey("name")
+        private val EMAIL_KEY = stringPreferencesKey("email")
+        private val ID_KEY = stringPreferencesKey("id")
+        private val ROLES_KEY = stringPreferencesKey("roles")
+        private val STATE_KEY = booleanPreferencesKey("state")
+
+        fun getInstance(dataStore: DataStore<Preferences>): SettingPreferences {
+            return INSTANCE ?: synchronized(this) {
+                val instance = SettingPreferences(dataStore)
+                INSTANCE = instance
+                instance
+            }
+        }
     }
 }

@@ -8,7 +8,6 @@ import kotlinx.parcelize.Parcelize
 data class Auth(
     val name: String,
     val email: String,
-    val password: String,
     val id: String,
     val roles: String,
     val isLogin: Boolean

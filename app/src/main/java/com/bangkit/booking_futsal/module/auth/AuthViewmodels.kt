@@ -5,15 +5,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.bangkit.booking_futsal.data.remote.api.ApiConfig
+import com.bangkit.booking_futsal.data.remote.model.Auth
 import com.bangkit.booking_futsal.data.remote.model.UsersResponse
 import com.bangkit.booking_futsal.utils.AuthCallbackString
+import com.bangkit.booking_futsal.utils.SettingPreferences
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class AuthViewmodels : ViewModel() {
+class AuthViewmodels(private val pref: SettingPreferences) : ViewModel() {
 
     private var _user = MutableLiveData<UsersResponse>()
     val user: LiveData<UsersResponse> = _user
@@ -33,6 +37,14 @@ class AuthViewmodels : ViewModel() {
                 val responseBody = response.body()
                 if (responseBody?.data != null) {
                     _user.value = response.body()
+                    val model = Auth(
+                        responseBody.data.name.toString(),
+                        email,
+                        responseBody.data.id.toString(),
+                        responseBody.data.roles.toString(),
+                        true
+                    )
+                    saveUser(model)
                     Log.e("hore1", "onResponse: ${response.body()}")
                     callback.onResponse(
                         responseBody.success.toString(),
@@ -58,6 +70,11 @@ class AuthViewmodels : ViewModel() {
         })
     }
 
+    fun saveUser(auth: Auth) {
+        viewModelScope.launch {
+            pref.saveUser(auth)
+        }
+    }
 
     fun register(
         name: String,

@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pref = activity?.let { SettingPreferences(it) }!!
+//        pref = activity?.let { SettingPreferences(it) }!!
 
 //        if (pref.preference.getString("email", "") != "") {
 //            if (pref.preference.getString("token", "") != "") {
@@ -67,18 +67,18 @@ class LoginFragment : Fragment() {
                         .show()
                 }
             })
-            viewModel.user.observe(viewLifecycleOwner) { user ->
-                user.data?.id?.let { it1 ->
-                    user.data.roles?.let { it2 ->
-                        pref.setUserLogin(
-                            it1.toInt(), email,
-                            it2
-                        )
-                    }
-                }
+//            viewModel.user.observe(viewLifecycleOwner) { user ->
+//                user.data?.id?.let { it1 ->
+//                    user.data.roles?.let { it2 ->
+//                        pref.setUserLogin(
+//                            it1.toInt(), email,
+//                            it2
+//                        )
+//                    }
+//                }
 //                Toast.makeText(context, "email : $email id: ${user.data?.id} roles: ${user.data?.roles}", Toast.LENGTH_SHORT)
 //                    .show()
-                println("email : $email id: ${user.data?.id} roles: ${user.data?.roles}")
+//                println("email : $email id: ${user.data?.id} roles: ${user.data?.roles}")
 //                val intent = Intent(this@LoginActivity, MainActivity::class.java)
 //                startActivity(intent)
             }
@@ -86,4 +86,3 @@ class LoginFragment : Fragment() {
     }
 
 
-}
