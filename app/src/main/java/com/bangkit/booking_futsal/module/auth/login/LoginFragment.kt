@@ -1,6 +1,7 @@
 package com.bangkit.booking_futsal.module.auth.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import com.bangkit.booking_futsal.module.main.MainActivity
 import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.databinding.FragmentLoginBinding
 import com.bangkit.booking_futsal.module.auth.AuthViewmodels
@@ -71,9 +73,16 @@ class LoginFragment : Fragment() {
             val password = binding.edtPassword.text.toString()
             viewmodel.login(email, password, object : AuthCallbackString {
                 override fun onResponse(success: String, message: String) {
+                    if (success == "true") {
+                        val intent = Intent(activity, MainActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+                    }
                     Toast.makeText(context, message, Toast.LENGTH_SHORT)
                         .show()
                 }
+
             })
 //            viewModel.user.observe(viewLifecycleOwner) { user ->
 //                user.data?.id?.let { it1 ->

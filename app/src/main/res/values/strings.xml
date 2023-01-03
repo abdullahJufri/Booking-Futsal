@@ -11,4 +11,6 @@
     <string name="passwordValid">Password must be more than 6</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
+    <string name="home_title">Home</string>
+    <string name="profile">Profile</string>
 </resources>

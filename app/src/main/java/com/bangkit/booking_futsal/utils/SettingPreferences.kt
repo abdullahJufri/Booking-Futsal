@@ -35,6 +35,15 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
 
         }
     }
+    suspend fun logout() {
+        dataStore.edit {
+            it[STATE_KEY] = false
+            it[NAME_KEY] = ""
+            it[EMAIL_KEY] = ""
+            it[ID_KEY] = ""
+            it[ROLES_KEY] = ""
+        }
+    }
 
 //    fun getUser(): Flow<Auth> {
 //        return preference.data.map {

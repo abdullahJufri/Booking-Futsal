@@ -1,4 +1,4 @@
-package com.bangkit.booking_futsal
+package com.bangkit.booking_futsal.module.main
 
 import android.content.Context
 import android.os.Bundle
@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.commit {
-            replace(R.id.fragment_container, LoginFragment(), LoginFragment::class.java.simpleName)
-        }
+//        supportFragmentManager.commit {
+//            replace(R.id.fragment_container, LoginFragment(), LoginFragment::class.java.simpleName)
+//        }
     }
 }
