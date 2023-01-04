@@ -10,7 +10,7 @@ import com.bangkit.booking_futsal.data.remote.api.ApiConfig
 import com.bangkit.booking_futsal.data.remote.model.Auth
 import com.bangkit.booking_futsal.data.remote.model.UsersResponse
 import com.bangkit.booking_futsal.utils.AuthCallbackString
-import com.bangkit.booking_futsal.utils.SettingPreferences
+import com.bangkit.booking_futsal.data.local.SettingPreferences
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback

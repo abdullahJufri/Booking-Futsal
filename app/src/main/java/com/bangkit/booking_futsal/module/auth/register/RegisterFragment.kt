@@ -12,14 +12,13 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.databinding.FragmentRegisterBinding
 import com.bangkit.booking_futsal.module.auth.AuthViewmodels
 import com.bangkit.booking_futsal.module.auth.login.LoginFragment
 import com.bangkit.booking_futsal.utils.AuthCallbackString
-import com.bangkit.booking_futsal.utils.SettingPreferences
+import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")

@@ -1,4 +1,4 @@
-package com.bangkit.booking_futsal.utils
+package com.bangkit.booking_futsal.data.local
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

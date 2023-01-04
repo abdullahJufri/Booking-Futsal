@@ -14,7 +14,7 @@ import com.bangkit.booking_futsal.databinding.ActivitySplashScreenBinding
 import com.bangkit.booking_futsal.module.auth.login.LoginFragment
 import com.bangkit.booking_futsal.module.main.MainActivity
 import com.bangkit.booking_futsal.module.main.MainViewmodels
-import com.bangkit.booking_futsal.utils.SettingPreferences
+import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")

@@ -19,7 +19,7 @@ import com.bangkit.booking_futsal.databinding.FragmentLoginBinding
 import com.bangkit.booking_futsal.module.auth.AuthViewmodels
 import com.bangkit.booking_futsal.module.auth.register.RegisterFragment
 import com.bangkit.booking_futsal.utils.AuthCallbackString
-import com.bangkit.booking_futsal.utils.SettingPreferences
+import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
