@@ -25,7 +25,10 @@ class DetailActivity : AppCompatActivity() {
         displayResult()
 
         binding.btnBooking.setOnClickListener {
+//            val intent = Intent(this, BookingActivity::class.java)
+//            startActivity(intent)
             val intent = Intent(this, BookingActivity::class.java)
+            intent.putExtra(BookingActivity.EXTRA_FUTSAL, futsal)
             startActivity(intent)
         }
 

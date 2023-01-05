@@ -1,6 +1,7 @@
 package com.bangkit.booking_futsal.data.remote.api
 
 import com.bangkit.booking_futsal.data.remote.model.FustalsResponse
+import com.bangkit.booking_futsal.data.remote.model.SpinnerResponse
 import com.bangkit.booking_futsal.data.remote.model.UsersResponse
 import retrofit2.Call
 import retrofit2.http.Field
@@ -28,4 +29,12 @@ interface ApiService {
 
     @GET("futsal")
     fun getUserFutsal(): Call<FustalsResponse>
+
+    @POST("futsal/dd")
+    fun getSpinner(
+        @Field("id") id: String,
+    ): Call<SpinnerResponse>
+
+
+
 }
