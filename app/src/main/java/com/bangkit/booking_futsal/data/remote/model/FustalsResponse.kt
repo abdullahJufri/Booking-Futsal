@@ -1,7 +1,10 @@
 package com.bangkit.booking_futsal.data.remote.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class FustalsResponse(
 
 	@field:SerializedName("data")
@@ -12,8 +15,9 @@ data class FustalsResponse(
 
 	@field:SerializedName("message")
 	val message: String? = null
-)
+) : Parcelable
 
+@Parcelize
 data class FutsalsItem(
 
 	@field:SerializedName("jumlah_lapangan")
@@ -51,4 +55,4 @@ data class FutsalsItem(
 
 	@field:SerializedName("harga_pagi")
 	val hargaPagi: String? = null
-)
+) :Parcelable

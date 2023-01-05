@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.databinding.ItemRowFutsalBinding
+import com.bangkit.booking_futsal.module.home.detail.DetailActivity
 import com.bangkit.booking_futsal.utils.DiffCallback
 import com.bumptech.glide.Glide
 
@@ -62,14 +63,23 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 //                    val optionsCompat: ActivityOptionsCompat =
 //                        ActivityOptionsCompat.makeSceneTransitionAnimation(
 //                            itemView.context as Activity,
-//                            Pair(imgImage, "profile"),
+//                            Pair(imgImage, "photos"),
 //                            Pair(tvName, "name"),
 //                            Pair(tvHarga, "harga"),
 //                            Pair(tvAlamat, "alamat"),
 //                        )
-//                    val intent = Intent(itemView.context, DetailStoryActivity::class.java)
-//                    intent.putExtra(DetailStoryActivity.EXTRA_STORY, story)
+//                    val optionsCompat: ActivityOptionsCompat =
+//                        ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                            itemView.context as Activity,
+//                            Pair(imgImage, "photos"),
+//                            Pair(tvName, "name"),
+//                            Pair(tvHarga, "harga"),
+//                            Pair(tvAlamat, "alamat"),
+//                        )
+                    val intent = Intent(itemView.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_FUTSAL, futsal)
 //                    itemView.context.startActivity(intent, optionsCompat.toBundle())
+                    itemView.context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity).toBundle())
                 }
 
 
