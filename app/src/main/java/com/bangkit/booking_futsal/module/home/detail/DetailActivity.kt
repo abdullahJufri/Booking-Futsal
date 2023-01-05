@@ -1,11 +1,13 @@
 package com.bangkit.booking_futsal.module.home.detail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.databinding.ActivityDetailBinding
+import com.bangkit.booking_futsal.module.home.booking.BookingActivity
 import com.bumptech.glide.Glide
 
 class DetailActivity : AppCompatActivity() {
@@ -21,6 +23,11 @@ class DetailActivity : AppCompatActivity() {
         futsal = intent.getParcelableExtra(EXTRA_FUTSAL)!!
         viewmodel.setDetailStory(futsal)
         displayResult()
+
+        binding.btnBooking.setOnClickListener {
+            val intent = Intent(this, BookingActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
