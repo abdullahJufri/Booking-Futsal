@@ -7,31 +7,26 @@ import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DiffUtil
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
-import com.bangkit.booking_futsal.data.remote.model.SpinnerItems
 import com.bangkit.booking_futsal.databinding.ActivityBookingBinding
 import com.bangkit.booking_futsal.module.home.detail.DetailActivity
-import com.bangkit.booking_futsal.utils.DiffCallback2
 import java.util.*
 
 class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityBookingBinding
     private lateinit var futsal: FutsalsItem
     private var spinner: Spinner? = null
-
+    private var result: TextView? = null
 
     private val viewmodel: BookingViewmodels by viewModels()
     private var id: String? = null
-    private val listLapangan = ArrayList<SpinnerItems>()
 
-//    private val listFutsal2 = List<FutsalsItem>()
 
     private var arrayAdapter: ArrayAdapter<String>? = null
-    private var arrayListAdapter: ListAdapter? = null
 
 
-    private var itemList = arrayOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +40,8 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             dateDialog()
         }
         spinnerFutsal()
+        result = binding.tvPilih
+        Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
 
 
     }
@@ -77,64 +74,53 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     }
 
     fun spinnerFutsal() {
-
         viewmodel.setDetailStory(futsal)
         id = viewmodel.futsalsItem.id
         spinner = binding.spinner
         viewmodel.showListFutsal(id.toString())
 
-        arrayAdapter =
-            ArrayAdapter(
+        viewmodel.itemLapangan.observe(this) {
+            arrayAdapter = ArrayAdapter(
                 applicationContext,
                 android.R.layout.simple_spinner_item,
-                listLapangan.map { it.label })
-        Log.e("TAG", "spinnerFutsal: ${listLapangan.map { it.label }}")
-//        arrayAdapter =
-//            ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, itemList)
-//        arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        viewmodel.itemFutsal.observe(this) {
-//            setListStory(it).toString()
-            arrayAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, it.map { it.label })
-//            arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                it.map { it.label },
+            )
             Log.e("TAG", "spinnerFutsal2: ${it}")
             spinner?.adapter = arrayAdapter
             spinner?.onItemSelectedListener = this
         }
-
         spinner?.adapter = arrayAdapter
         spinner?.onItemSelectedListener = this
 
     }
 
-    fun setListStory(itemLapangn: List<SpinnerItems>) {
-        val diffCallback = DiffCallback2(this.listLapangan, itemLapangn)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-
-        this.listLapangan.clear()
-        this.listLapangan.addAll(itemLapangn)
-
-    }
-
-
-    fun spinnerFutsal2() {
-        spinner = binding.spinner
-        arrayAdapter =
-            ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, itemList)
-//        arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner?.adapter = arrayAdapter
-        spinner?.onItemSelectedListener = this
-
-    }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
         var items: String = parent?.getItemAtPosition(position).toString()
+        Log.e("TAG", "onItemSelected: ${parent?.count}")
+        when (parent?.count) {
+            1 -> if (items == "Lapangan 1") {
+                result?.text = "1"
+            }
+            2 -> when (items) {
+                "Lapangan 1" -> result?.text = "2"
+                "Lapangan 2" -> result?.text = "3"
+            }
+            3 -> when (items) {
+                "Lapangan 1" -> result?.text = "4"
+                "Lapangan 2" -> result?.text = "5"
+                "Lapangan 3" -> result?.text = "6"
+            }
+        }
         Toast.makeText(applicationContext, items, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         Toast.makeText(applicationContext, "Nothing Selected", Toast.LENGTH_SHORT).show()
     }
+
+
 
     companion object {
         const val EXTRA_FUTSAL = "extra_futsal"

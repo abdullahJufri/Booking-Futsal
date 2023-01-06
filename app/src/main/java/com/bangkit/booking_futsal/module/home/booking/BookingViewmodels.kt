@@ -13,8 +13,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class BookingViewmodels : ViewModel() {
-    private val _itemFutsal = MutableLiveData<List<SpinnerItems>>()
-    val itemFutsal: LiveData<List<SpinnerItems>> = _itemFutsal
+    private val _itemLapangan = MutableLiveData<List<SpinnerItems>>()
+    val itemLapangan: LiveData<List<SpinnerItems>> = _itemLapangan
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -43,7 +43,7 @@ class BookingViewmodels : ViewModel() {
                 if (responseBody != null) {
                     if (responseBody.data != null) {
 
-                        _itemFutsal.value = response.body()!!.data as List<SpinnerItems>?
+                        _itemLapangan.value = response.body()!!.data as List<SpinnerItems>?
 //                        _isHaveData.value =
 //                            responseBody.message == "futsal fetched successfully"
                         Log.e(TAG, "berhasil: ${responseBody}")
