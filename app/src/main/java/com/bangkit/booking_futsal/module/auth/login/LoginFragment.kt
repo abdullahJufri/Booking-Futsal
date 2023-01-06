@@ -21,6 +21,7 @@ import com.bangkit.booking_futsal.module.auth.register.RegisterFragment
 import com.bangkit.booking_futsal.utils.AuthCallbackString
 import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.utils.ViewModelFactory
+import com.bangkit.booking_futsal.utils.showLoading
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -29,15 +30,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewmodel: AuthViewmodels
 
-    private fun setupViewModel() {
-        viewmodel = ViewModelProvider(
-            this,
-            ViewModelFactory(
-                SettingPreferences.getInstance(requireContext().dataStore),
-                requireActivity().application
-            )
-        )[AuthViewmodels::class.java]
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +44,9 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
+        viewmodel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it, binding.progressBar)
+        }
 //        pref = activity?.let { SettingPreferences(it) }!!
 
 //        if (pref.preference.getString("email", "") != "") {
@@ -99,6 +95,15 @@ class LoginFragment : Fragment() {
 //                val intent = Intent(this@LoginActivity, MainActivity::class.java)
 //                startActivity(intent)
         }
+    }
+    private fun setupViewModel() {
+        viewmodel = ViewModelProvider(
+            this,
+            ViewModelFactory(
+                SettingPreferences.getInstance(requireContext().dataStore),
+                requireActivity().application
+            )
+        )[AuthViewmodels::class.java]
     }
 }
 

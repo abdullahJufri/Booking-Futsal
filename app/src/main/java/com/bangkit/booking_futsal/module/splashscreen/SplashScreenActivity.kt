@@ -7,14 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.booking_futsal.R
+import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.databinding.ActivitySplashScreenBinding
-import com.bangkit.booking_futsal.module.auth.login.LoginFragment
+import com.bangkit.booking_futsal.module.auth.AuthActivity
 import com.bangkit.booking_futsal.module.main.MainActivity
 import com.bangkit.booking_futsal.module.main.MainViewmodels
-import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -48,9 +46,9 @@ class SplashScreenActivity : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                supportFragmentManager.commit {
-                    replace(R.id.fragment_container, LoginFragment(), LoginFragment::class.java.simpleName)
-                }
+                val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
     }

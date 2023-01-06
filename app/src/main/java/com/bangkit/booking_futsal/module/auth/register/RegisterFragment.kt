@@ -20,6 +20,7 @@ import com.bangkit.booking_futsal.module.auth.login.LoginFragment
 import com.bangkit.booking_futsal.utils.AuthCallbackString
 import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.utils.ViewModelFactory
+import com.bangkit.booking_futsal.utils.showLoading
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class RegisterFragment : Fragment() {
@@ -52,7 +53,9 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
-
+        viewmodel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it, binding.progressBar)
+        }
         binding.btnRegister.setOnClickListener {
             val name = binding.edtName.text.toString()
             val email = binding.edtEmail.text.toString()
