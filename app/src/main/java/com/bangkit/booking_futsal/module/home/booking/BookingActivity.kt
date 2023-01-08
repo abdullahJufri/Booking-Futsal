@@ -9,7 +9,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.databinding.ActivityBookingBinding
+import com.bangkit.booking_futsal.databinding.ChoiceChipBinding
 import com.bangkit.booking_futsal.module.home.detail.DetailActivity
+import com.google.android.material.chip.Chip
 import java.util.*
 
 class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -23,9 +25,6 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
 
     private var arrayAdapter: ArrayAdapter<String>? = null
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,9 +41,47 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         spinnerFutsal()
         result = binding.tvPilih
         Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
+        setupChip()
 
 
+
+//        for (i in 0 until 24) {
+//            var chip = Chip(this)
+//            binding.chipGroup.addView(chip)
+//            with(binding){
+//                chip0.isEnabled = false
+//
+//            }
+//
+//        }
     }
+
+
+    private fun setupChip() {
+        var jam_buka = viewmodel.futsalsItem.jamBuka
+        var jam_tutup = viewmodel.futsalsItem.jamTutup
+        val nameList =
+            arrayListOf("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00")
+        for (name in nameList) {
+            val chip = createChip(name)
+            if (name.take(2) < jam_buka.toString().take(2) || name.take(2) > jam_tutup.toString().take(2)) {
+                binding.chipGroup.addView(chip)
+                chip.isEnabled = false
+            } else {
+                binding.chipGroup.addView(chip)
+                chip.isEnabled = true
+            }
+//            binding.chipGroup.addView(chip)
+
+        }
+    }
+
+    private fun createChip(label: String): Chip {
+        val chip = ChoiceChipBinding.inflate(layoutInflater).root
+        chip.text = label
+        return chip
+    }
+
 
 
     fun dateDialog() {
@@ -119,7 +156,6 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         Toast.makeText(applicationContext, "Nothing Selected", Toast.LENGTH_SHORT).show()
     }
-
 
 
     companion object {
