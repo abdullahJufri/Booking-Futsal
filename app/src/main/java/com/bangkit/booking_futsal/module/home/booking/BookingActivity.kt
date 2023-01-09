@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.databinding.ActivityBookingBinding
 import com.bangkit.booking_futsal.databinding.ChoiceChipBinding
@@ -19,6 +20,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private lateinit var futsal: FutsalsItem
     private var spinner: Spinner? = null
     private var result: TextView? = null
+    private var result2: TextView? = null
 
     private val viewmodel: BookingViewmodels by viewModels()
     private var id: String? = null
@@ -40,6 +42,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         }
         spinnerFutsal()
         result = binding.tvPilih
+        result2 = binding.tvTest
         Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
         setupChip()
 
@@ -61,17 +64,51 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         var jam_buka = viewmodel.futsalsItem.jamBuka
         var jam_tutup = viewmodel.futsalsItem.jamTutup
         val nameList =
-            arrayListOf("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00")
+            arrayListOf(
+                "00:00",
+                "01:00",
+                "02:00",
+                "03:00",
+                "04:00",
+                "05:00",
+                "06:00",
+                "07:00",
+                "08:00",
+                "09:00",
+                "10:00",
+                "11:00",
+                "12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00",
+                "18:00",
+                "19:00",
+                "20:00",
+                "21:00",
+                "22:00",
+                "23:00"
+            )
         for (name in nameList) {
             val chip = createChip(name)
-            if (name.take(2) < jam_buka.toString().take(2) || name.take(2) > jam_tutup.toString().take(2)) {
+            if (name.take(2) < jam_buka.toString().take(2) || name.take(2) > jam_tutup.toString()
+                    .take(2)
+            ) {
                 binding.chipGroup.addView(chip)
                 chip.isEnabled = false
             } else {
                 binding.chipGroup.addView(chip)
+                chip.setOnClickListener {
+                    result2?.text = name
+                }
+
+
+
                 chip.isEnabled = true
             }
-//            binding.chipGroup.addView(chip)
+            binding.chipGroup.isSingleSelection = true
+
 
         }
     }
@@ -81,7 +118,6 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         chip.text = label
         return chip
     }
-
 
 
     fun dateDialog() {

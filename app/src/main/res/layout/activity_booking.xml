@@ -87,6 +87,7 @@
         android:layout_width="wrap_content"
         style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_height="wrap_content"
+        app:selectionRequired="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
@@ -243,6 +244,18 @@
 <!--            android:text="23:00" />-->
 
     </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/tv_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="109dp"
+        android:layout_marginEnd="244dp"
+        android:layout_marginBottom="80dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
