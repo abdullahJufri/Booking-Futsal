@@ -4,10 +4,12 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.databinding.ActivityBookingBinding
 import com.bangkit.booking_futsal.databinding.ChoiceChipBinding
@@ -19,11 +21,18 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private lateinit var binding: ActivityBookingBinding
     private lateinit var futsal: FutsalsItem
     private var spinner: Spinner? = null
-    private var result: TextView? = null
-    private var result2: TextView? = null
+    private var resultLap: String? = null
+    private var resultJam: String? = null
+    private var resulDate: String? = null
+    private var resulHarga: String? = null
+
 
     private val viewmodel: BookingViewmodels by viewModels()
     private var id: String? = null
+
+    val mCalendar: Calendar = Calendar.getInstance()
+    private val format = "yyyy-MM-dd"
+    private val sdf = java.text.SimpleDateFormat(format, Locale.getDefault())
 
 
     private var arrayAdapter: ArrayAdapter<String>? = null
@@ -36,33 +45,23 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         futsal = intent.getParcelableExtra(DetailActivity.EXTRA_FUTSAL)!!
 
 
-
+        binding.tvDate.text = sdf.format(mCalendar.time)
+        resulDate = sdf.format(mCalendar.time)
+        Log.e("resultDate", "$resulDate")
         binding.btnDate.setOnClickListener {
             dateDialog()
         }
         spinnerFutsal()
-        result = binding.tvPilih
-        result2 = binding.tvTest
         Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
         setupChip()
 
 
-
-//        for (i in 0 until 24) {
-//            var chip = Chip(this)
-//            binding.chipGroup.addView(chip)
-//            with(binding){
-//                chip0.isEnabled = false
-//
-//            }
-//
-//        }
     }
 
 
     private fun setupChip() {
-        var jam_buka = viewmodel.futsalsItem.jamBuka
-        var jam_tutup = viewmodel.futsalsItem.jamTutup
+        val jam_buka = viewmodel.futsalsItem.jamBuka
+        val jam_tutup = viewmodel.futsalsItem.jamTutup
         val nameList =
             arrayListOf(
                 "00:00",
@@ -98,9 +97,19 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 binding.chipGroup.addView(chip)
                 chip.isEnabled = false
             } else {
+
                 binding.chipGroup.addView(chip)
+
                 chip.setOnClickListener {
-                    result2?.text = name
+                    if (name.take(2) <= "16") {
+                        binding.tvHarga.text = futsal.hargaPagi
+                        resulDate = futsal.hargaPagi
+                    } else {
+                        binding.tvHarga.text = futsal.hargaMalam
+                        resulDate = futsal.hargaMalam
+                    }
+                    resultJam = name
+                    Log.e("result2", "$resultJam")
                 }
 
 
@@ -126,14 +135,15 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val month = todayDate.get(Calendar.MONTH)
         val day = todayDate.get(Calendar.DAY_OF_MONTH)
 
-        val mCalendar = Calendar.getInstance()
 
         val mDialog = DatePickerDialog(this, { _, mYear, mMonth, mDay ->
             mCalendar[Calendar.YEAR] = mYear
             mCalendar[Calendar.MONTH] = mMonth
             mCalendar[Calendar.DAY_OF_MONTH] = mDay
-            val format = "yyyy-MM-dd"
-            val sdf = java.text.SimpleDateFormat(format, Locale.getDefault())
+            resulDate = sdf.format(mCalendar.time)
+            Log.e("resultDate", "$resulDate")
+
+
             binding.tvDate.text = sdf.format(mCalendar.time)
         }, mCalendar[Calendar.YEAR], mCalendar[Calendar.MONTH], mCalendar[Calendar.DAY_OF_MONTH])
 
@@ -170,22 +180,24 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-        var items: String = parent?.getItemAtPosition(position).toString()
+        val items: String = parent?.getItemAtPosition(position).toString()
         Log.e("TAG", "onItemSelected: ${parent?.count}")
         when (parent?.count) {
             1 -> if (items == "Lapangan 1") {
-                result?.text = "1"
+                resultLap = "1"
             }
             2 -> when (items) {
-                "Lapangan 1" -> result?.text = "2"
-                "Lapangan 2" -> result?.text = "3"
+                "Lapangan 1" -> resultLap = "2"
+                "Lapangan 2" -> resultLap = "3"
             }
             3 -> when (items) {
-                "Lapangan 1" -> result?.text = "4"
-                "Lapangan 2" -> result?.text = "5"
-                "Lapangan 3" -> result?.text = "6"
+                "Lapangan 1" -> resultLap = "4"
+                "Lapangan 2" -> resultLap = "5"
+                "Lapangan 3" -> resultLap = "6"
             }
+
         }
+        Log.e("result1", "$resultLap.")
         Toast.makeText(applicationContext, items, Toast.LENGTH_SHORT).show()
     }
 
