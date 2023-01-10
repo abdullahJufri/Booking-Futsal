@@ -16,7 +16,17 @@ import com.bangkit.booking_futsal.databinding.ActivityBookingBinding
 import com.bangkit.booking_futsal.databinding.ChoiceChipBinding
 import com.bangkit.booking_futsal.module.home.detail.DetailActivity
 import com.google.android.material.chip.Chip
+import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback
+import com.midtrans.sdk.corekit.core.MidtransSDK
+import com.midtrans.sdk.corekit.core.TransactionRequest
+import com.midtrans.sdk.corekit.core.themes.CustomColorTheme
+import com.midtrans.sdk.corekit.models.BillingAddress
+import com.midtrans.sdk.corekit.models.CustomerDetails
+import com.midtrans.sdk.corekit.models.ItemDetails
+import com.midtrans.sdk.corekit.models.ShippingAddress
+import com.midtrans.sdk.uikit.SdkUIFlowBuilder
 import java.util.*
+
 
 class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityBookingBinding
@@ -55,30 +65,80 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         binding.btnDate.setOnClickListener {
             dateDialog()
         }
-//        spinnerFutsal()
 
         Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
-//        setupChip()
+        setupMidtrans()
+
+    }
+
+
+    fun setupMidtrans() {
+        SdkUIFlowBuilder.init()
+            .setClientKey("SB-Mid-client-9a98NH6qLZxBZ3py")
+            .setContext(applicationContext)
+            .setTransactionFinishedCallback(TransactionFinishedCallback {
+
+                    result ->
+//                logic
+//                if (result.status == "succes")
+            })
+            .setMerchantBaseUrl("https://agussgans.000webhostapp.com/test.php/charge/")
+            .enableLog(true)
+            .setColorTheme(CustomColorTheme("#FFE51255", "#B61548", "#FFE51255"))
+            .setLanguage("id")
+            .buildSDK()
 
         binding.btnBayar.setOnClickListener {
 //            getJam()
-            Log.e("id", "onCreate: ${id.toString()}")
-            Log.e("lap", "onCreate: $resultLap")
-            Log.e("date", "onCreate: $resulDate")
+            Log.e("harga", resulHarga.toString())
+//            val transactionRequest = TransactionRequest()
+            val transactionRequest = resulHarga?.toDouble()?.let { it1 ->
+                TransactionRequest(
+                    "${futsal.name}" + System.currentTimeMillis().toString(),
+                    it1
+                )
+            }
+            val detail =
+                resulHarga?.toDouble()
+                    ?.let { it1 -> ItemDetails(futsal.name, it1, 1, resultLap.toString()) }
+
+            val itemDetails = ArrayList<ItemDetails>()
+            if (detail != null) {
+                itemDetails.add(detail)
+            }
+            if (transactionRequest != null) {
+                uiKitDetail(transactionRequest)
+            }
+            transactionRequest?.itemDetails = itemDetails
+            MidtransSDK.getInstance().transactionRequest = transactionRequest
+            MidtransSDK.getInstance().startPaymentUiFlow(this)
         }
-
-
     }
 
-    fun getJam() {
+    fun uiKitDetail(transactionRequest: TransactionRequest){
+        val customerDetails = CustomerDetails()
+        customerDetails.setCustomerIdentifier("ujang")
+        customerDetails.setPhone("08123456789")
+        customerDetails.setFirstName("Budi")
+        customerDetails.setLastName("Utomo")
+        customerDetails.setEmail("budi@utomo.com")
 
-        viewmodel.showJam(id.toString(), resultLap.toString(), resulDate.toString())
+        val shippingAddress = ShippingAddress()
+        shippingAddress.address = "Jalan Andalas Gang Sebelah No. 1"
+        shippingAddress.city = "Jakarta"
+        shippingAddress.postalCode = "10220"
+        customerDetails.setShippingAddress(shippingAddress)
 
-        viewmodel.itemJam.observe(this) {
-//            setupChip()
-        }
+        val billingAddress = BillingAddress()
+        billingAddress.address = "Jalan Andalas Gang Sebelah No. 1"
+        billingAddress.city = "Jakarta"
+        billingAddress.postalCode = "10220"
+        customerDetails.setBillingAddress(billingAddress)
 
+        transactionRequest.setCustomerDetails(customerDetails)
     }
+
+
 
 
     private fun setupChip() {
@@ -137,54 +197,19 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                     chip.setOnClickListener {
                         if (name.take(2) <= "16") {
                             binding.tvHarga.text = futsal.hargaPagi
-                            resulDate = futsal.hargaPagi
+                            resulHarga = futsal.hargaPagi
                         } else {
                             binding.tvHarga.text = futsal.hargaMalam
-                            resulDate = futsal.hargaMalam
+                            resulHarga = futsal.hargaMalam
                         }
                         resultJam = name
                         Log.e("result2", "$resultJam")
                     }
-
-
-
                     chip.isEnabled = true
                 }
-//                if (schedule.jam == name) {
-//                    chip.isEnabled = false
-//                }
+
                 binding.chipGroup.isSingleSelection = true
             }
-
-//            val chip = createChip(name)
-//            if (name.take(2) < jam_buka.toString().take(2) || name.take(2) > jam_tutup.toString()
-//                    .take(2)
-//            ) {
-//                binding.chipGroup.addView(chip)
-//                chip.isEnabled = false
-//            } else {
-//
-//                binding.chipGroup.addView(chip)
-//
-//                chip.setOnClickListener {
-//                    if (name.take(2) <= "16") {
-//                        binding.tvHarga.text = futsal.hargaPagi
-//                        resulDate = futsal.hargaPagi
-//                    } else {
-//                        binding.tvHarga.text = futsal.hargaMalam
-//                        resulDate = futsal.hargaMalam
-//                    }
-//                    resultJam = name
-//                    Log.e("result2", "$resultJam")
-//                }
-//
-//
-//
-//                chip.isEnabled = true
-//            }
-//            binding.chipGroup.isSingleSelection = true
-
-
         }
     }
 
@@ -212,7 +237,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
             binding.tvDate.text = sdf.format(mCalendar.time)
 
-            if (resultLap != null && resulDate!= null){
+            if (resultLap != null && resulDate != null) {
                 setupChip()
             }
         }, mCalendar[Calendar.YEAR], mCalendar[Calendar.MONTH], mCalendar[Calendar.DAY_OF_MONTH])
@@ -227,13 +252,10 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         spinnerFutsal()
 
 
-
     }
 
 
     fun spinnerFutsal() {
-//        viewmodel.setDetailStory(futsal)
-//        id = viewmodel.futsalsItem.id
         spinner = binding.spinner
         viewmodel.showListLapangan(id.toString())
 
@@ -249,7 +271,6 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
 
             spinner?.onItemSelectedListener = this
-
 
 
         }
@@ -284,17 +305,11 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
         }
 
-        if (resultLap != null && resulDate!= null){
+        if (resultLap != null && resulDate != null) {
             setupChip()
         }
         Log.e("resultlap", "$resultLap.")
 
-
-//        viewmodel.showJam(id.toString(),resultLap.toString(), resulDate.toString())
-
-//        viewmodel.itemJam.observe(this){
-//
-//        }
         Toast.makeText(applicationContext, items, Toast.LENGTH_SHORT).show()
     }
 
