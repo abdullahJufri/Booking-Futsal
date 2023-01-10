@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".module.home.booking.BookingActivity">
-
-    <!--    <DatePicker-->
-    <!--        android:id="@+id/datePicker"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:calendarViewShown="false"-->
-    <!--        android:minDate="0"-->
-    <!--        android:maxDate="5"-->
-    <!--        android:datePickerMode="spinner"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
 
     <TextView
         android:id="@+id/tv_date"
@@ -86,149 +74,149 @@
         app:layout_constraintVertical_bias="0.008"
         app:singleSelection="true">
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip0"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="00:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip0"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="00:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="01:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip1"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="01:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="02:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip2"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="02:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="03:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip3"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="03:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip4"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="04:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip4"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="04:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip5"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="05:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip5"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="05:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip6"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="06:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip6"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="06:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip7"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="07:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip7"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="07:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip8"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="08:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip8"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="08:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip9"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="09:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip9"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="09:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip10"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="10:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip10"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="10:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip11"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="11:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip11"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="11:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip12"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="12:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip12"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="12:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip13"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="13:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip13"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="13:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip14"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="14:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip14"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="14:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip15"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="15:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip15"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="15:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip16"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="16:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip16"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="16:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip17"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="17:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip17"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="17:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip18"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="18:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip18"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="18:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip19"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="19:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip19"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="19:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip20"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="20:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip20"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="20:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip22"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="21:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip22"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="21:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip23"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="22:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip23"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="22:00" />-->
 
-<!--        <com.google.android.material.chip.Chip-->
-<!--            android:id="@+id/chip24"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="23:00" />-->
+        <!--        <com.google.android.material.chip.Chip-->
+        <!--            android:id="@+id/chip24"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="23:00" />-->
 
     </com.google.android.material.chip.ChipGroup>
 
@@ -255,6 +243,20 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_bayar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <!--    <DatePicker-->
+    <!--        android:id="@+id/datePicker"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:calendarViewShown="false"-->
+    <!--        android:minDate="0"-->
+    <!--        android:maxDate="5"-->
+    <!--        android:datePickerMode="spinner"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

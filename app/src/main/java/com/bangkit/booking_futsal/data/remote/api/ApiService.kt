@@ -34,6 +34,13 @@ interface ApiService {
         @Field("id") id: String,
     ): Call<SpinnerResponse>
 
+    @FormUrlEncoded
+    @POST("schedule")
+    fun getSchedule(
+        @Field("id_futsal") idFutsal: String,
+        @Field("id_lapangan") idLapangan: String,
+        @Field("tanggal") tanggal: String,
+    ): Call<ScheduleResponse>
 
 
 }

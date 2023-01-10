@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
+import com.bangkit.booking_futsal.data.remote.model.ScheduleItem
 import com.bangkit.booking_futsal.databinding.ActivityBookingBinding
 import com.bangkit.booking_futsal.databinding.ChoiceChipBinding
 import com.bangkit.booking_futsal.module.home.detail.DetailActivity
@@ -20,6 +21,7 @@ import java.util.*
 class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityBookingBinding
     private lateinit var futsal: FutsalsItem
+    private lateinit var schedule: ScheduleItem
     private var spinner: Spinner? = null
     private var resultLap: String? = null
     private var resultJam: String? = null
@@ -44,6 +46,8 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         setContentView(binding.root)
         futsal = intent.getParcelableExtra(DetailActivity.EXTRA_FUTSAL)!!
 
+        viewmodel.setDetailStory(futsal)
+        id = viewmodel.futsalsItem.id
 
         binding.tvDate.text = sdf.format(mCalendar.time)
         resulDate = sdf.format(mCalendar.time)
@@ -51,10 +55,28 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         binding.btnDate.setOnClickListener {
             dateDialog()
         }
-        spinnerFutsal()
-        Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
-        setupChip()
+//        spinnerFutsal()
 
+        Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
+//        setupChip()
+
+        binding.btnBayar.setOnClickListener {
+//            getJam()
+            Log.e("id", "onCreate: ${id.toString()}")
+            Log.e("lap", "onCreate: $resultLap")
+            Log.e("date", "onCreate: $resulDate")
+        }
+
+
+    }
+
+    fun getJam() {
+
+        viewmodel.showJam(id.toString(), resultLap.toString(), resulDate.toString())
+
+        viewmodel.itemJam.observe(this) {
+//            setupChip()
+        }
 
     }
 
@@ -89,34 +111,78 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 "22:00",
                 "23:00"
             )
-        for (name in nameList) {
-            val chip = createChip(name)
-            if (name.take(2) < jam_buka.toString().take(2) || name.take(2) > jam_tutup.toString()
-                    .take(2)
-            ) {
-                binding.chipGroup.addView(chip)
-                chip.isEnabled = false
-            } else {
 
-                binding.chipGroup.addView(chip)
 
-                chip.setOnClickListener {
-                    if (name.take(2) <= "16") {
-                        binding.tvHarga.text = futsal.hargaPagi
-                        resulDate = futsal.hargaPagi
-                    } else {
-                        binding.tvHarga.text = futsal.hargaMalam
-                        resulDate = futsal.hargaMalam
+        viewmodel.showJam(id.toString(), resultLap.toString(), resulDate.toString())
+        viewmodel.itemJam.observe(this) {
+            binding.chipGroup.removeAllViews()
+            for (name in nameList) {
+                val chip = createChip(name)
+
+
+                Log.e("jam", "jam ${it.map { it.jam }}")
+//            val a = viewmodel.jamItem.jam
+
+
+                if (name.take(2) < jam_buka.toString()
+                        .take(2) || name.take(2) > jam_tutup.toString()
+                        .take(2) || it.map { it.jam?.take(2) }.contains(name.take(2))
+                ) {
+                    binding.chipGroup.addView(chip)
+                    chip.isEnabled = false
+                } else {
+
+                    binding.chipGroup.addView(chip)
+
+                    chip.setOnClickListener {
+                        if (name.take(2) <= "16") {
+                            binding.tvHarga.text = futsal.hargaPagi
+                            resulDate = futsal.hargaPagi
+                        } else {
+                            binding.tvHarga.text = futsal.hargaMalam
+                            resulDate = futsal.hargaMalam
+                        }
+                        resultJam = name
+                        Log.e("result2", "$resultJam")
                     }
-                    resultJam = name
-                    Log.e("result2", "$resultJam")
+
+
+
+                    chip.isEnabled = true
                 }
-
-
-
-                chip.isEnabled = true
+//                if (schedule.jam == name) {
+//                    chip.isEnabled = false
+//                }
+                binding.chipGroup.isSingleSelection = true
             }
-            binding.chipGroup.isSingleSelection = true
+
+//            val chip = createChip(name)
+//            if (name.take(2) < jam_buka.toString().take(2) || name.take(2) > jam_tutup.toString()
+//                    .take(2)
+//            ) {
+//                binding.chipGroup.addView(chip)
+//                chip.isEnabled = false
+//            } else {
+//
+//                binding.chipGroup.addView(chip)
+//
+//                chip.setOnClickListener {
+//                    if (name.take(2) <= "16") {
+//                        binding.tvHarga.text = futsal.hargaPagi
+//                        resulDate = futsal.hargaPagi
+//                    } else {
+//                        binding.tvHarga.text = futsal.hargaMalam
+//                        resulDate = futsal.hargaMalam
+//                    }
+//                    resultJam = name
+//                    Log.e("result2", "$resultJam")
+//                }
+//
+//
+//
+//                chip.isEnabled = true
+//            }
+//            binding.chipGroup.isSingleSelection = true
 
 
         }
@@ -145,6 +211,10 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
 
             binding.tvDate.text = sdf.format(mCalendar.time)
+
+            if (resultLap != null && resulDate!= null){
+                setupChip()
+            }
         }, mCalendar[Calendar.YEAR], mCalendar[Calendar.MONTH], mCalendar[Calendar.DAY_OF_MONTH])
 
         mCalendar.set(year, month, day)
@@ -154,26 +224,38 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         mDialog.datePicker.maxDate = mCalendar.timeInMillis
 
         mDialog.show()
+        spinnerFutsal()
+
+
+
     }
 
+
     fun spinnerFutsal() {
-        viewmodel.setDetailStory(futsal)
-        id = viewmodel.futsalsItem.id
+//        viewmodel.setDetailStory(futsal)
+//        id = viewmodel.futsalsItem.id
         spinner = binding.spinner
-        viewmodel.showListFutsal(id.toString())
+        viewmodel.showListLapangan(id.toString())
 
         viewmodel.itemLapangan.observe(this) {
             arrayAdapter = ArrayAdapter(
                 applicationContext,
                 android.R.layout.simple_spinner_item,
                 it.map { it.label },
-            )
+
+                )
             Log.e("TAG", "spinnerFutsal2: ${it}")
             spinner?.adapter = arrayAdapter
+
+
             spinner?.onItemSelectedListener = this
+
+
+
         }
         spinner?.adapter = arrayAdapter
         spinner?.onItemSelectedListener = this
+
 
     }
 
@@ -186,18 +268,33 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             1 -> if (items == "Lapangan 1") {
                 resultLap = "1"
             }
+
             2 -> when (items) {
                 "Lapangan 1" -> resultLap = "2"
                 "Lapangan 2" -> resultLap = "3"
+
+
             }
             3 -> when (items) {
                 "Lapangan 1" -> resultLap = "4"
                 "Lapangan 2" -> resultLap = "5"
                 "Lapangan 3" -> resultLap = "6"
+
             }
 
         }
-        Log.e("result1", "$resultLap.")
+
+        if (resultLap != null && resulDate!= null){
+            setupChip()
+        }
+        Log.e("resultlap", "$resultLap.")
+
+
+//        viewmodel.showJam(id.toString(),resultLap.toString(), resulDate.toString())
+
+//        viewmodel.itemJam.observe(this){
+//
+//        }
         Toast.makeText(applicationContext, items, Toast.LENGTH_SHORT).show()
     }
 
