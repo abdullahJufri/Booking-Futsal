@@ -1,4 +1,4 @@
-package com.bangkit.booking_futsal.module.history
+package com.bangkit.booking_futsal.module.history.main
 
 import android.content.Context
 import android.os.Bundle

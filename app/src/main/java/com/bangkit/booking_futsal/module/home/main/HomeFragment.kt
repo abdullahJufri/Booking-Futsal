@@ -1,4 +1,4 @@
-package com.bangkit.booking_futsal.module.home
+package com.bangkit.booking_futsal.module.home.main
 
 import android.content.Context
 import android.os.Bundle

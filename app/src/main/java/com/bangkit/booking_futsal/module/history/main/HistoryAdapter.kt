@@ -1,17 +1,15 @@
-package com.bangkit.booking_futsal.module.history
+package com.bangkit.booking_futsal.module.history.main
 
 import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.booking_futsal.data.remote.model.HistoryItem
 import com.bangkit.booking_futsal.databinding.ItemRowHistoryBinding
 import com.bangkit.booking_futsal.module.history.detail.HistoryDetailActivity
-import com.bangkit.booking_futsal.module.home.detail.DetailViiewmodels
 import com.bangkit.booking_futsal.utils.DiffCallback2
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {

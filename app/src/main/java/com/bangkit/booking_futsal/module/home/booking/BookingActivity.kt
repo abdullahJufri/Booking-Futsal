@@ -50,7 +50,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private var resultLap: String? = null
     private var resultJam: String? = null
     private var resulDate: String? = null
-    private var resulHarga: String? = null
+    private var resulHarga: String? = "0"
 
 
     private val viewmodel: BookingViewmodels by viewModels()
@@ -74,19 +74,28 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         viewmodel.setDetailStory(futsal)
         id = viewmodel.futsalsItem.id
 
+
         binding.tvDate.text = sdf.format(mCalendar.time)
         resulDate = sdf.format(mCalendar.time)
         Log.e("resultDate", "$resulDate")
+        settingBtn()
         binding.btnDate.setOnClickListener {
             dateDialog()
         }
 
+
         Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
 
         setupViewModel()
+
+
+    }
+    private fun settingBtn(){
+        binding.btnBayar.isEnabled = resulHarga != "0"
     }
 
     private fun setupViewModel() {
+
         mainViewModel = ViewModelProvider(
             this,
             ViewModelFactory(SettingPreferences.getInstance(dataStore), this)
@@ -95,6 +104,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             val name = it.name
             val email = it.email
             val idUser = it.id
+
             setupMidtrans(name, email, idUser)
         }
 
@@ -147,7 +157,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
         binding.btnBayar.setOnClickListener {
 
-            Log.e("harga", resulHarga.toString())
+
 //            val transactionRequest = TransactionRequest()
             val transactionRequest = resulHarga?.toDouble()?.let { it1 ->
                 TransactionRequest(
@@ -166,10 +176,9 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             if (transactionRequest != null) {
                 uiKitDetail(transactionRequest, name, email)
             }
+            Log.e("hargaFalse", resulHarga.toString())
             transactionRequest?.itemDetails = itemDetails
             MidtransSDK.getInstance().transactionRequest = transactionRequest
-            val a= MidtransSDK.getInstance().transactionRequest.toString()
-            Log.e("TAG", "setupMidtrans: $a" )
             MidtransSDK.getInstance().startPaymentUiFlow(this)
 
 
@@ -256,16 +265,21 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
                     chip.setOnClickListener {
                         if (name.take(2) <= "16") {
-                            binding.tvHarga.text = futsal.hargaPagi
                             resulHarga = futsal.hargaPagi
+                            binding.tvHarga.text = resulHarga
+                            settingBtn()
                         } else {
-                            binding.tvHarga.text = futsal.hargaMalam
+
                             resulHarga = futsal.hargaMalam
+                            binding.tvHarga.text = resulHarga
+                            settingBtn()
                         }
                         resultJam = name
                         Log.e("result2", "$resultJam")
                     }
                     chip.isEnabled = true
+//                    binding.btnBayar.isEnabled = resulHarga != "0"
+
                 }
 
                 binding.chipGroup.isSingleSelection = true
@@ -296,6 +310,8 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
 
             binding.tvDate.text = sdf.format(mCalendar.time)
+            resulHarga = "0"
+            binding.tvHarga.text = resulHarga
 
             if (resultLap != null && resulDate != null) {
                 setupChip()
@@ -337,12 +353,16 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         spinner?.adapter = arrayAdapter
         spinner?.onItemSelectedListener = this
 
+        settingBtn()
+
 
     }
 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+        resulHarga = "0"
+        binding.tvHarga.text = resulHarga
+        settingBtn()
         val items: String = parent?.getItemAtPosition(position).toString()
         Log.e("TAG", "onItemSelected: ${parent?.count}")
         when (parent?.count) {
@@ -368,6 +388,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         if (resultLap != null && resulDate != null) {
             setupChip()
         }
+
         Log.e("resultlap", "$resultLap.")
 
         Toast.makeText(applicationContext, items, Toast.LENGTH_SHORT).show()

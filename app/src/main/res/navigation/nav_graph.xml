@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.bangkit.booking_futsal.module.home.HomeFragment"
+        android:name="com.bangkit.booking_futsal.module.home.main.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.bangkit.booking_futsal.module.history.HistoryFragment"
+        android:name="com.bangkit.booking_futsal.module.history.main.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
 
