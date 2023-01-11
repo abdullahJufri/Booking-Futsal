@@ -48,7 +48,8 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
                 tvItemName.text = history.name
                 tvItemTanggal.text = history.tanggal
-                tvItemStatus.text = history.status
+                tvHistoryHarga.text = history.harga
+                tvHistoryJam.text = history.jam
                 tvOrder.text = history.orderId
                 itemView.setOnClickListener {
 //

@@ -33,22 +33,33 @@ class HistoryDetailActivity : AppCompatActivity() {
         viewmodel.getMidtrans(orderId.toString())
         viewmodel.itemMidtrans.observe(this) {
             Log.d("TAG", "displayResult: ${it.transactionStatus}")
-            if (it.transactionStatus == status){
-                binding.tvStatus.text = it.transactionStatus
+            if (status.toString() == "null") {
+                binding.tvStatus.text = "INVALID"
             } else{
-               viewmodel.update(orderId.toString(),it.transactionStatus.toString(),object :
-                   AuthCallbackString{
-                   override fun onResponse(success: String, message: String) {
-                       binding.tvStatus.text = it.transactionStatus
-                   }
+                if (it.transactionStatus == status){
+                    binding.tvStatus.text = it.transactionStatus
+                } else{
+                    viewmodel.update(orderId.toString(),it.transactionStatus.toString(),object :
+                        AuthCallbackString{
+                        override fun onResponse(success: String, message: String) {
+                            binding.tvStatus.text = it.transactionStatus
+                        }
 
-               })
+                    })
+                }
             }
+
         }
 
 
         with(binding) {
             tvName.text = viewmodel.hystoriesItem.name
+            tvJenis.text = viewmodel.hystoriesItem.nama_lapangan
+            tvTanggal.text = viewmodel.hystoriesItem.tanggal
+            tvJam.text = viewmodel.hystoriesItem.jam
+            tvIhistoryHarga.text = viewmodel.hystoriesItem.harga
+            tvOrderId.text = viewmodel.hystoriesItem.orderId.toString()
+
 //            tvStatus.text = viewmodel.hystoriesItem.status
         }
     }
