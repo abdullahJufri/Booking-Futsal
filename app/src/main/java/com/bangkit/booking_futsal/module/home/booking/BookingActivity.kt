@@ -2,6 +2,7 @@ package com.bangkit.booking_futsal.module.home.booking
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,6 +22,7 @@ import com.bangkit.booking_futsal.data.remote.model.ScheduleItem
 import com.bangkit.booking_futsal.databinding.ActivityBookingBinding
 import com.bangkit.booking_futsal.databinding.ChoiceChipBinding
 import com.bangkit.booking_futsal.module.home.detail.DetailActivity
+import com.bangkit.booking_futsal.module.main.MainActivity
 import com.bangkit.booking_futsal.module.main.MainViewmodels
 import com.bangkit.booking_futsal.module.splashscreen.dataStore
 import com.bangkit.booking_futsal.utils.AuthCallbackString
@@ -133,6 +135,8 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                     }
 
                 })
+                val inten = Intent(this, MainActivity::class.java)
+                startActivity(inten)
             })
             .setMerchantBaseUrl("https://agussgans.000webhostapp.com/test.php/charge/")
             .enableLog(true)

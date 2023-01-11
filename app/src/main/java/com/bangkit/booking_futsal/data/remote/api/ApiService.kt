@@ -55,6 +55,10 @@ interface ApiService {
         @Field("status") status: String,
     ): Call<InsertResponse>
 
-
+    @FormUrlEncoded
+    @POST("history")
+    fun getUserHistory(
+        @Field("id_user") idUser: String,
+    ): Call<HistoryResponse>
 
 }

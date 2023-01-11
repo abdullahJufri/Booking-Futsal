@@ -5,11 +5,12 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home_title" />
     <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/ic_baseline_history_24"
+        android:title="@string/history_title" />
+    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/profile" />
-<!--    <item-->
-<!--        android:id="@+id/navigation_settings"-->
-<!--        android:icon="@drawable/ic_settings"-->
-<!--        android:title="@string/settings_title" />-->
+
 </menu>

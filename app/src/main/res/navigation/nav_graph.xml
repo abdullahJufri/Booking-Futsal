@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.bangkit.booking_futsal.module.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.bangkit.booking_futsal.module.profile.ProfileFragment"
         android:label="fragment_add_story"
@@ -21,9 +27,5 @@
             app:destination="@+id/navigation_home" />
     </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_settings"-->
-<!--        android:name="com.bastilla.storyapp.module.main.settings.SettingsFragment"-->
-<!--        android:label="fragment_settings"-->
-<!--        tools:layout="@layout/fragment_settings" />-->
+
 </navigation>
