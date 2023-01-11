@@ -1,6 +1,7 @@
 package com.bangkit.booking_futsal.module.home.booking
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,11 +11,20 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
+import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.data.remote.model.ScheduleItem
 import com.bangkit.booking_futsal.databinding.ActivityBookingBinding
 import com.bangkit.booking_futsal.databinding.ChoiceChipBinding
 import com.bangkit.booking_futsal.module.home.detail.DetailActivity
+import com.bangkit.booking_futsal.module.main.MainViewmodels
+import com.bangkit.booking_futsal.module.splashscreen.dataStore
+import com.bangkit.booking_futsal.utils.AuthCallbackString
+import com.bangkit.booking_futsal.utils.ViewModelFactory
 import com.google.android.material.chip.Chip
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback
 import com.midtrans.sdk.corekit.core.MidtransSDK
@@ -28,6 +38,8 @@ import com.midtrans.sdk.uikit.SdkUIFlowBuilder
 import java.util.*
 
 
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityBookingBinding
     private lateinit var futsal: FutsalsItem
@@ -40,6 +52,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
 
     private val viewmodel: BookingViewmodels by viewModels()
+    private lateinit var mainViewModel: MainViewmodels
     private var id: String? = null
 
     val mCalendar: Calendar = Calendar.getInstance()
@@ -67,20 +80,59 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         }
 
         Log.e("TAG", "onCreate: ${futsal.hargaPagi}")
-        setupMidtrans()
+
+        setupViewModel()
+    }
+
+    private fun setupViewModel() {
+        mainViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(SettingPreferences.getInstance(dataStore), this)
+        )[MainViewmodels::class.java]
+        mainViewModel.getUser().observe(this) {
+            val name = it.name
+            val email = it.email
+            val idUser = it.id
+            setupMidtrans(name, email, idUser)
+        }
+
 
     }
 
+    fun setupMidtrans(name: String, email: String, idUser: String) {
 
-    fun setupMidtrans() {
+        val orderID = System.currentTimeMillis().toString()
         SdkUIFlowBuilder.init()
             .setClientKey("SB-Mid-client-9a98NH6qLZxBZ3py")
             .setContext(applicationContext)
             .setTransactionFinishedCallback(TransactionFinishedCallback {
 
                     result ->
-//                logic
-//                if (result.status == "succes")
+                var status:String? = null
+                if (result.status.equals("pending", true)) {
+                    status = "Pending"
+                    Toast.makeText(this, "Pending", Toast.LENGTH_SHORT).show()
+                } else if (result.status.equals("success", true)) {
+                    status = "Success"
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                } else if (result.status.equals("fail", true)) {
+                    status = "Failed"
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                } else if (result.status.equals("cancel", true)) {
+                    status = "Canceled"
+                    Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show()
+                }
+                viewmodel.insert(id.toString(),resultLap.toString(),resulDate.toString(),resultJam.toString(),idUser,resulHarga.toString(),orderID,status.toString(),object :
+                    AuthCallbackString {
+                    override fun onResponse(success: String, message: String) {
+                        if (success == "true"){
+                            Toast.makeText(this@BookingActivity, "Berhasil", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this@BookingActivity, "Gagal", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                })
             })
             .setMerchantBaseUrl("https://agussgans.000webhostapp.com/test.php/charge/")
             .enableLog(true)
@@ -89,12 +141,12 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             .buildSDK()
 
         binding.btnBayar.setOnClickListener {
-//            getJam()
+
             Log.e("harga", resulHarga.toString())
 //            val transactionRequest = TransactionRequest()
             val transactionRequest = resulHarga?.toDouble()?.let { it1 ->
                 TransactionRequest(
-                    "${futsal.name}" + System.currentTimeMillis().toString(),
+                    orderID,
                     it1
                 )
             }
@@ -107,38 +159,38 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 itemDetails.add(detail)
             }
             if (transactionRequest != null) {
-                uiKitDetail(transactionRequest)
+                uiKitDetail(transactionRequest, name, email)
             }
             transactionRequest?.itemDetails = itemDetails
             MidtransSDK.getInstance().transactionRequest = transactionRequest
             MidtransSDK.getInstance().startPaymentUiFlow(this)
+
+
         }
     }
 
-    fun uiKitDetail(transactionRequest: TransactionRequest){
+    fun uiKitDetail(transactionRequest: TransactionRequest, name: String, email: String) {
         val customerDetails = CustomerDetails()
-        customerDetails.setCustomerIdentifier("ujang")
-        customerDetails.setPhone("08123456789")
-        customerDetails.setFirstName("Budi")
-        customerDetails.setLastName("Utomo")
-        customerDetails.setEmail("budi@utomo.com")
+        customerDetails.customerIdentifier = name
+        customerDetails.phone = "08123456789"
+        customerDetails.firstName = name
+        customerDetails.lastName = "-"
+        customerDetails.email = email
 
         val shippingAddress = ShippingAddress()
-        shippingAddress.address = "Jalan Andalas Gang Sebelah No. 1"
-        shippingAddress.city = "Jakarta"
-        shippingAddress.postalCode = "10220"
-        customerDetails.setShippingAddress(shippingAddress)
+        shippingAddress.address = "-"
+        shippingAddress.city = "-"
+        shippingAddress.postalCode = "-"
+        customerDetails.shippingAddress = shippingAddress
 
         val billingAddress = BillingAddress()
-        billingAddress.address = "Jalan Andalas Gang Sebelah No. 1"
-        billingAddress.city = "Jakarta"
-        billingAddress.postalCode = "10220"
-        customerDetails.setBillingAddress(billingAddress)
+        billingAddress.address = "-"
+        billingAddress.city = "-"
+        billingAddress.postalCode = ""
+        customerDetails.billingAddress = billingAddress
 
-        transactionRequest.setCustomerDetails(customerDetails)
+        transactionRequest.customerDetails = customerDetails
     }
-
-
 
 
     private fun setupChip() {

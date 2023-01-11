@@ -1,11 +1,13 @@
 package com.bangkit.booking_futsal.module.home.booking
 
+import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bangkit.booking_futsal.data.remote.api.ApiConfig
 import com.bangkit.booking_futsal.data.remote.model.*
+import com.bangkit.booking_futsal.utils.AuthCallbackString
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,6 +93,48 @@ class BookingViewmodels : ViewModel() {
             override fun onFailure(call: Call<ScheduleResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun insert(
+        idfutsal: String,
+        idlapangan: String,
+        tanggal: String,
+        jam: String,
+        idUser: String,
+        harga: String,
+        orderId: String,
+        status: String,
+        callback: AuthCallbackString
+    ) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().inserSchedule(idfutsal, idlapangan, tanggal, jam, idUser, harga, orderId,status)
+        client.enqueue(object : Callback<InsertResponse> {
+            override fun onResponse(
+                call: Call<InsertResponse>,
+                response: Response<InsertResponse>,
+            ) {
+                _isLoading.value = false
+                val responseBody = response.body()
+                if (responseBody != null) {
+                    callback.onResponse(
+                        responseBody.success.toString(),
+                        responseBody.message.toString()
+                    )
+                    Log.e(ContentValues.TAG, "onResponse: ${response.body()}")
+                } else {
+                    callback.onResponse(
+                        responseBody?.success.toString(),
+                        responseBody?.message.toString()
+                    )
+                    Log.e("regis", "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<InsertResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }

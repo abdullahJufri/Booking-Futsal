@@ -42,5 +42,19 @@ interface ApiService {
         @Field("tanggal") tanggal: String,
     ): Call<ScheduleResponse>
 
+    @FormUrlEncoded
+    @POST("schedule/insert")
+    fun inserSchedule(
+        @Field("id_futsal") idFutsal: String,
+        @Field("id_lapangan") idLapangan: String,
+        @Field("tanggal") tanggal: String,
+        @Field("jam") jam: String,
+        @Field("id_user") idUser: String,
+        @Field("harga") harga: String,
+        @Field("order_id") orderID: String,
+        @Field("status") status: String,
+    ): Call<InsertResponse>
+
+
 
 }
