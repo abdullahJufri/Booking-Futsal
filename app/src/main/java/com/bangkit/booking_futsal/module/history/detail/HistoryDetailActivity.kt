@@ -33,6 +33,7 @@ class HistoryDetailActivity : AppCompatActivity() {
         viewmodel.getMidtrans(orderId.toString())
         viewmodel.itemMidtrans.observe(this) {
             Log.d("TAG", "displayResult: ${it.transactionStatus}")
+            binding.tvPembayaran.text = it.paymentType
             if (status.toString() == "null") {
                 binding.tvStatus.text = "INVALID"
             } else{
