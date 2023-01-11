@@ -2,10 +2,7 @@ package com.bangkit.booking_futsal.data.remote.api
 
 import com.bangkit.booking_futsal.data.remote.model.*
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -44,7 +41,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("schedule/insert")
-    fun inserSchedule(
+    fun insertSchedule(
         @Field("id_futsal") idFutsal: String,
         @Field("id_lapangan") idLapangan: String,
         @Field("tanggal") tanggal: String,
@@ -61,4 +58,17 @@ interface ApiService {
         @Field("id_user") idUser: String,
     ): Call<HistoryResponse>
 
+    @FormUrlEncoded
+    @POST("history/update")
+    fun updateHistory(
+        @Field("order_id") orderId: String,
+        @Field("status") status: String,
+    ): Call<InsertResponse>
+
+
+    @GET("{order_id}/status")
+    @Headers("Authorization: Basic U0ItTWlkLXNlcnZlci1MTTB4MHpFRHhPc2xXdnZvMlg3dDlXTFo6")
+    fun getMidtransStatus(
+        @Path("order_id") orderID: String,
+    ): Call<MidtransResponse>
 }

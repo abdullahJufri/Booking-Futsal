@@ -109,7 +109,7 @@ class BookingViewmodels : ViewModel() {
         callback: AuthCallbackString
     ) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().inserSchedule(idfutsal, idlapangan, tanggal, jam, idUser, harga, orderId,status)
+        val client = ApiConfig.getApiService().insertSchedule(idfutsal, idlapangan, tanggal, jam, idUser, harga, orderId,status)
         client.enqueue(object : Callback<InsertResponse> {
             override fun onResponse(
                 call: Call<InsertResponse>,

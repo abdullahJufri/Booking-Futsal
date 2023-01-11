@@ -112,17 +112,18 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                     result ->
                 var status:String? = null
                 if (result.status.equals("pending", true)) {
-                    status = "Pending"
-                    Toast.makeText(this, "Pending", Toast.LENGTH_SHORT).show()
+                    status = "pending"
+                    Toast.makeText(this, "pending", Toast.LENGTH_SHORT).show()
                 } else if (result.status.equals("success", true)) {
-                    status = "Success"
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                    status = "success"
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
                 } else if (result.status.equals("fail", true)) {
                     status = "Failed"
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
                 } else if (result.status.equals("cancel", true)) {
-                    status = "Canceled"
-                    Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show()
+                    status = "cancel"
+                    Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show()
+
                 }
                 viewmodel.insert(id.toString(),resultLap.toString(),resulDate.toString(),resultJam.toString(),idUser,resulHarga.toString(),orderID,status.toString(),object :
                     AuthCallbackString {
@@ -167,7 +168,10 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             }
             transactionRequest?.itemDetails = itemDetails
             MidtransSDK.getInstance().transactionRequest = transactionRequest
+            val a= MidtransSDK.getInstance().transactionRequest.toString()
+            Log.e("TAG", "setupMidtrans: $a" )
             MidtransSDK.getInstance().startPaymentUiFlow(this)
+
 
 
         }

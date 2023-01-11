@@ -60,7 +60,6 @@ class HistoryViewmodels(private val pref: SettingPreferences) : ViewModel() {
         return pref.getUser().asLiveData()
     }
 
-
     companion object {
         private const val TAG = "historyViewmodel"
     }

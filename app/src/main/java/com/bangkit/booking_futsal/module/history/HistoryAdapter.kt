@@ -1,13 +1,17 @@
 package com.bangkit.booking_futsal.module.history
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.booking_futsal.data.remote.model.HistoryItem
 import com.bangkit.booking_futsal.databinding.ItemRowHistoryBinding
-import com.bangkit.booking_futsal.utils.DiffCallback
+import com.bangkit.booking_futsal.module.history.detail.HistoryDetailActivity
+import com.bangkit.booking_futsal.module.home.detail.DetailViiewmodels
 import com.bangkit.booking_futsal.utils.DiffCallback2
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
@@ -48,9 +52,12 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
                 tvOrder.text = history.orderId
                 itemView.setOnClickListener {
 //
-//                    val intent = Intent(itemView.context, DetailActivity::class.java)
-//                    intent.putExtra(DetailActivity.EXTRA_FUTSAL, history)
-//                    itemView.context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity).toBundle())
+                    val intent = Intent(itemView.context, HistoryDetailActivity::class.java)
+                    intent.putExtra(HistoryDetailActivity.EXTRA_HISTORY, history)
+                    itemView.context.startActivity(intent,
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity)
+                            .toBundle()
+                    )
                 }
 
 
