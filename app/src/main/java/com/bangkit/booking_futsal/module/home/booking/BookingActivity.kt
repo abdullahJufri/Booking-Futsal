@@ -151,7 +151,6 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             })
             .setMerchantBaseUrl("https://agussgans.000webhostapp.com/test.php/charge/")
             .enableLog(true)
-            .setColorTheme(CustomColorTheme("#FFE51255", "#B61548", "#FFE51255"))
             .setLanguage("id")
             .buildSDK()
 
