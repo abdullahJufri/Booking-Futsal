@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/tv_date"
+        style="@style/TextAppearance.Material3.LabelLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -22,13 +23,13 @@
 
     <ImageButton
         android:id="@+id/btn_date"
+        style="@style/Widget.Material3.MaterialTimePicker.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="347dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:contentDescription="date"
+        android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_calendar_month_24" />
@@ -36,6 +37,7 @@
 
     <TextView
         android:id="@+id/tv_lap"
+        style="@style/TextAppearance.Material3.LabelLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -53,16 +55,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/app_name"
+        android:minHeight="48dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_lap" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
         style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:selectionRequired="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
@@ -72,162 +76,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner"
         app:layout_constraintVertical_bias="0.008"
+        app:selectionRequired="true"
         app:singleSelection="true">
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip0"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="00:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip1"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="01:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip2"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="02:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip3"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="03:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip4"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="04:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip5"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="05:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip6"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="06:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip7"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="07:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip8"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="08:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip9"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="09:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip10"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="10:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip11"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="11:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip12"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="12:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip13"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="13:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip14"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="14:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip15"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="15:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip16"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="16:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip17"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="17:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip18"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="18:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip19"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="19:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip20"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="20:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip22"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="21:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip23"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="22:00" />-->
-
-        <!--        <com.google.android.material.chip.Chip-->
-        <!--            android:id="@+id/chip24"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="23:00" />-->
 
     </com.google.android.material.chip.ChipGroup>
 
     <Button
-        android:enabled="true"
         android:id="@+id/btn_bayar"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
+        android:enabled="true"
         android:text="Bayar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -237,27 +98,23 @@
         android:id="@+id/tv_harga"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="0"
         app:layout_constraintBottom_toTopOf="@+id/btn_bayar"
+        app:layout_constraintStart_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Harga : Rp."
+        app:layout_constraintBottom_toTopOf="@+id/btn_bayar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-    <!--    <DatePicker-->
-    <!--        android:id="@+id/datePicker"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:calendarViewShown="false"-->
-    <!--        android:minDate="0"-->
-    <!--        android:maxDate="5"-->
-    <!--        android:datePickerMode="spinner"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

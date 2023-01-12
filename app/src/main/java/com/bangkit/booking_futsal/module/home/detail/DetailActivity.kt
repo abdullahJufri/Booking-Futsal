@@ -1,6 +1,7 @@
 package com.bangkit.booking_futsal.module.home.detail
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -35,8 +36,20 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun displayResult() {
+        val map = Uri.parse(viewmodel.futsalsItem.maps)
+        val intent = Intent(Intent.ACTION_VIEW, map)
+        intent.setPackage("com.google.android.apps.maps")
+        binding.btnMap.setOnClickListener {
+            startActivity(intent)
+        }
         with(binding){
             tvDtlName.text = viewmodel.futsalsItem.name
+            tvDtlLap.text = viewmodel.futsalsItem.jumlahLapangan
+
+            tvDtlAlamat.text = viewmodel.futsalsItem.alamatLapangan
+
+            tvDtlJamBuka.text = viewmodel.futsalsItem.jamBuka
+            tvDtlJamTutup.text = viewmodel.futsalsItem.jamTutup
 //            tvItemDesc.text = viewmodel.storyItem.description
 
             Glide.with(imgDtlPhotos)
