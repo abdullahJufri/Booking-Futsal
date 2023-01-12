@@ -1,10 +1,12 @@
 package com.bangkit.booking_futsal.module.history.detail
 
+import android.graphics.Color.green
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.map
+import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.remote.model.HistoryItem
 import com.bangkit.booking_futsal.databinding.ActivityHistoryDetailBinding
 import com.bangkit.booking_futsal.utils.AuthCallbackString
@@ -35,34 +37,49 @@ class HistoryDetailActivity : AppCompatActivity() {
             Log.d("TAG", "displayResult: ${it.transactionStatus}")
             binding.tvPembayaran.text = it.paymentType
             if (status.toString() == "null") {
-                binding.tvStatus.text = "INVALID"
+                with(binding.tvStatus) {
+                    text = "INVALID"
+                    setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
+                    setTextColor(resources.getColor(R.color.white))
+
+                }
+
             } else{
                 if (it.transactionStatus == status){
-                    binding.tvStatus.text = it.transactionStatus
+                    with(binding.tvStatus) {
+                        text = it.transactionStatus
+                        setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
+                    }
                 } else{
                     viewmodel.update(orderId.toString(),it.transactionStatus.toString(),object :
                         AuthCallbackString{
                         override fun onResponse(success: String, message: String) {
-                            binding.tvStatus.text = it.transactionStatus
+                            with(binding.tvStatus){
+                                text = it.transactionStatus
+                                setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
+                                setTextColor(resources.getColor(R.color.white))
+                            }
+
                         }
 
                     })
                 }
             }
-
-        }
-
-
-        with(binding) {
-            tvName.text = viewmodel.hystoriesItem.name
-            tvJenis.text = viewmodel.hystoriesItem.nama_lapangan
-            tvTanggal.text = viewmodel.hystoriesItem.tanggal
-            tvJam.text = viewmodel.hystoriesItem.jam
-            tvIhistoryHarga.text = viewmodel.hystoriesItem.harga
-            tvOrderId.text = viewmodel.hystoriesItem.orderId.toString()
+            with(binding) {
+                tvName.text = viewmodel.hystoriesItem.name
+                tvJenis.text = viewmodel.hystoriesItem.nama_lapangan
+                tvTanggal.text = viewmodel.hystoriesItem.tanggal
+                tvJam.text = viewmodel.hystoriesItem.jam
+                tvIhistoryHarga.text = viewmodel.hystoriesItem.harga
+                tvOrderId.text = viewmodel.hystoriesItem.orderId.toString()
 
 //            tvStatus.text = viewmodel.hystoriesItem.status
+            }
+
         }
+
+
+
     }
 
 //    private fun displayResult() {
