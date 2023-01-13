@@ -80,4 +80,10 @@ interface ApiService {
     fun getUserStatus(
         @Field("order_id") orderID: String,
     ): Call<CheckResponse>
+
+    @FormUrlEncoded
+    @POST("admin/futsal")
+    fun getAdminFutsal(
+        @Field("id_pengelola") idPengelola: String,
+    ): Call<DashboardResponse>
 }

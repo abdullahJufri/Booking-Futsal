@@ -76,6 +76,7 @@ class AuthViewmodels(private val pref: SettingPreferences) : ViewModel() {
         }
     }
 
+
     fun register(
         name: String,
         email: String,

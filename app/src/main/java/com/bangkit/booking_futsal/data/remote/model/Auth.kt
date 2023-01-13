@@ -10,5 +10,6 @@ data class Auth(
     val email: String,
     val id: String,
     val roles: String,
-    val isLogin: Boolean
+    val isLogin: Boolean,
+    val futsal_id: String? = null
 ): Parcelable
