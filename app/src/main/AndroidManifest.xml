@@ -18,6 +18,27 @@
         tools:replace="android:allowBackup,android:usesCleartextTraffic,android:appComponentFactory"
         tools:targetApi="31">
         <activity
+            android:name=".module.admin.check.CheckActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".module.route.RouteActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".module.admin.dashboard.DashboardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".module.history.detail.HistoryDetailActivity"
             android:exported="false">
             <meta-data

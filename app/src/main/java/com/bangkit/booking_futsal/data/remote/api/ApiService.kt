@@ -65,10 +65,19 @@ interface ApiService {
         @Field("status") status: String,
     ): Call<InsertResponse>
 
+    //Midtrans
 
     @GET("{order_id}/status")
     @Headers("Authorization: Basic U0ItTWlkLXNlcnZlci1MTTB4MHpFRHhPc2xXdnZvMlg3dDlXTFo6")
     fun getMidtransStatus(
         @Path("order_id") orderID: String,
     ): Call<MidtransResponse>
+
+
+    //Admin
+    @FormUrlEncoded
+    @POST("admin/check")
+    fun getUserStatus(
+        @Field("order_id") orderID: String,
+    ): Call<CheckResponse>
 }
