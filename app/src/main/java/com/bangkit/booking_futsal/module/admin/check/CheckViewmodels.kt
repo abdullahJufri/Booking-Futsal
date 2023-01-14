@@ -4,11 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.bangkit.booking_futsal.data.remote.api.ApiConfig
-import com.bangkit.booking_futsal.data.remote.model.CheckItem
-import com.bangkit.booking_futsal.data.remote.model.CheckResponse
-import com.bangkit.booking_futsal.data.remote.model.HistoryItem
-import com.bangkit.booking_futsal.data.remote.model.HistoryResponse
+import com.bangkit.booking_futsal.data.remote.model.*
+import com.bangkit.booking_futsal.utils.AuthCallbackString
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,12 +22,12 @@ class CheckViewmodels: ViewModel() {
     private val _isHaveData = MutableLiveData<Boolean>()
 
 
-    fun checkOrder(orderID: String) {
+    fun checkOrder(orderID: String,idFutsal: String,callback: AuthCallbackString) {
         _isLoading.value = true
         _isHaveData.value = true
         val client = ApiConfig
             .getApiService()
-            .getUserStatus(orderID)
+            .getUserStatus(orderID,idFutsal)
 
         client.enqueue(object : Callback<CheckResponse> {
             override fun onResponse(
@@ -40,9 +39,22 @@ class CheckViewmodels: ViewModel() {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         if (responseBody.data != null) {
+                            callback.onResponse(
+                                responseBody.success.toString(),
+                                responseBody.message.toString()
+                            )
                             _itemCheck.value = response.body()?.data
                             _isHaveData.value =
                                 responseBody.message == "history fetched successfully"
+                        } else{
+                            callback.onResponse(
+                                responseBody.success.toString(),
+                                responseBody.message.toString()
+                            )
+                            _isHaveData.value =
+                                responseBody.message == "Data Tidak Ditemukan"
+                            Log.e(TAG, "onFailure: ${responseBody.message}")
+
                         }
                     }
                 } else {
@@ -56,6 +68,7 @@ class CheckViewmodels: ViewModel() {
             }
         })
     }
+
 
 
     companion object {

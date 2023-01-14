@@ -78,6 +78,7 @@ interface ApiService {
     @FormUrlEncoded
     @POST("admin/check")
     fun getUserStatus(
+        @Field("id_futsal") idFutsal: String,
         @Field("order_id") orderID: String,
     ): Call<CheckResponse>
 

@@ -56,6 +56,9 @@ data class CheckItem(
 	@field:SerializedName("nama_lapangan")
 	val namaLapangan: String? = null,
 
+	@field:SerializedName("nama_user")
+	val namaUser: String? = null,
+
 	@field:SerializedName("status")
 	val status: String? = null
 ):Parcelable
