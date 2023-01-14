@@ -26,6 +26,10 @@ class BookingViewmodels : ViewModel() {
     val itemJam: LiveData<List<ScheduleItem>> = _itemJam
 
 
+    private val _itemJam2 = MutableLiveData<List<ScheduleItem>>()
+    val itemJam2: LiveData<List<ScheduleItem>> = _itemJam2
+
+
     fun setDetailStory(futsal: FutsalsItem): FutsalsItem {
         futsalsItem = futsal
         return futsalsItem
@@ -97,6 +101,39 @@ class BookingViewmodels : ViewModel() {
         })
     }
 
+    fun showJam2(idfutsal: String, idlapangan: String, tanggal: String) {
+        _isLoading.value = true
+        _isHaveData.value = true
+        val client = ApiConfig
+            .getApiService()
+            .getSchedule(idfutsal, idlapangan, tanggal)
+
+        client.enqueue(object : Callback<ScheduleResponse> {
+            override fun onResponse(
+                call: Call<ScheduleResponse>,
+                response: Response<ScheduleResponse>
+            ) {
+                val responseBody = response.body()
+                if (responseBody != null) {
+                    if (responseBody.data != null) {
+
+                        _itemJam2.value = response.body()!!.data as List<ScheduleItem>?
+//                        _isHaveData.value =
+//                            responseBody.message == "futsal fetched successfully"
+                        Log.e(TAG, "berhasil: ${responseBody}")
+                    }
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ScheduleResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
     fun insert(
         idfutsal: String,
         idlapangan: String,
@@ -108,14 +145,14 @@ class BookingViewmodels : ViewModel() {
         status: String,
         callback: AuthCallbackString
     ) {
-        _isLoading.value = true
+//        _isLoading.value = true
         val client = ApiConfig.getApiService().insertSchedule(idfutsal, idlapangan, tanggal, jam, idUser, harga, orderId,status)
         client.enqueue(object : Callback<InsertResponse> {
             override fun onResponse(
                 call: Call<InsertResponse>,
                 response: Response<InsertResponse>,
             ) {
-                _isLoading.value = false
+//                _isLoading.value = false
                 val responseBody = response.body()
                 if (responseBody != null) {
                     callback.onResponse(

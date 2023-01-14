@@ -31,7 +31,6 @@ import com.google.android.material.chip.Chip
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
-import com.midtrans.sdk.corekit.core.themes.CustomColorTheme
 import com.midtrans.sdk.corekit.models.BillingAddress
 import com.midtrans.sdk.corekit.models.CustomerDetails
 import com.midtrans.sdk.corekit.models.ItemDetails
@@ -79,6 +78,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         resulDate = sdf.format(mCalendar.time)
         Log.e("resultDate", "$resulDate")
         settingBtn()
+
         binding.btnDate.setOnClickListener {
             dateDialog()
         }
@@ -90,7 +90,8 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
 
     }
-    private fun settingBtn(){
+
+    private fun settingBtn() {
         binding.btnBayar.isEnabled = resulHarga != "0"
     }
 
@@ -120,7 +121,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             .setTransactionFinishedCallback(TransactionFinishedCallback {
 
                     result ->
-                var status:String? = null
+                var status: String? = null
                 if (result.status.equals("pending", true)) {
                     status = "pending"
                     Toast.makeText(this, "pending", Toast.LENGTH_SHORT).show()
@@ -135,17 +136,28 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                     Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show()
 
                 }
-                viewmodel.insert(id.toString(),resultLap.toString(),resulDate.toString(),resultJam.toString(),idUser,resulHarga.toString(),orderID,status.toString(),object :
-                    AuthCallbackString {
-                    override fun onResponse(success: String, message: String) {
-                        if (success == "true"){
-                            Toast.makeText(this@BookingActivity, "Berhasil", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(this@BookingActivity, "Gagal", Toast.LENGTH_SHORT).show()
+                viewmodel.insert(
+                    id.toString(),
+                    resultLap.toString(),
+                    resulDate.toString(),
+                    resultJam.toString(),
+                    idUser,
+                    resulHarga.toString(),
+                    orderID,
+                    status.toString(),
+                    object :
+                        AuthCallbackString {
+                        override fun onResponse(success: String, message: String) {
+                            if (success == "true") {
+                                Toast.makeText(this@BookingActivity, "Berhasil", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                Toast.makeText(this@BookingActivity, "Gagal", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
-                    }
 
-                })
+                    })
                 val inten = Intent(this, MainActivity::class.java)
                 startActivity(inten)
             })
@@ -157,33 +169,60 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         binding.btnBayar.setOnClickListener {
 
 
+            viewmodel.showJam2(id.toString(), resultLap.toString(), resulDate.toString())
+
+
+
+            viewmodel.itemJam2.observe(this) {
+
+
+                val a = it.map { it.jam?.take(2).toString() }.toString()
+                val b = resultJam.toString().take(2)
+                val c = a.contains(b)
+                Log.e("TAG", "setuB: $a")
+                Log.e("TAG", "setupMidtrans456: $a")
+
+                if (c) {
+                    val a = it.map { it.jam?.take(2) }.contains(resultJam.toString().take(2))
+                    Log.e("TAG", "setupMidtrans123: $a")
+                    Log.e("Abdul", "if: $c")
+                    Log.e("TAG", "run: ${it.map { it.jam?.take(2) }}")
+                    Toast.makeText(this, "Jam Sudah Terbooking", Toast.LENGTH_SHORT).show()
+                    binding.btnBayar.isEnabled = false
+//                    finish()
+                } else {
+                    Log.e("Abdul", "else: $c")
+                    val transactionRequest = resulHarga?.toDouble()?.let { it1 ->
+                        TransactionRequest(
+                            orderID,
+                            it1
+                        )
+                    }
+                    val detail =
+                        resulHarga?.toDouble()
+                            ?.let { it1 -> ItemDetails(futsal.name, it1, 1, resultLap.toString()) }
+
+                    val itemDetails = ArrayList<ItemDetails>()
+                    if (detail != null) {
+                        itemDetails.add(detail)
+                    }
+                    if (transactionRequest != null) {
+                        uiKitDetail(transactionRequest, name, email)
+                    }
+                    Log.e("hargaFalse", resulHarga.toString())
+                    transactionRequest?.itemDetails = itemDetails
+                    MidtransSDK.getInstance().transactionRequest = transactionRequest
+                    MidtransSDK.getInstance().startPaymentUiFlow(this)
+
+                }
+
 //            val transactionRequest = TransactionRequest()
-            val transactionRequest = resulHarga?.toDouble()?.let { it1 ->
-                TransactionRequest(
-                    orderID,
-                    it1
-                )
+
+
             }
-            val detail =
-                resulHarga?.toDouble()
-                    ?.let { it1 -> ItemDetails(futsal.name, it1, 1, resultLap.toString()) }
-
-            val itemDetails = ArrayList<ItemDetails>()
-            if (detail != null) {
-                itemDetails.add(detail)
-            }
-            if (transactionRequest != null) {
-                uiKitDetail(transactionRequest, name, email)
-            }
-            Log.e("hargaFalse", resulHarga.toString())
-            transactionRequest?.itemDetails = itemDetails
-            MidtransSDK.getInstance().transactionRequest = transactionRequest
-            MidtransSDK.getInstance().startPaymentUiFlow(this)
-
-
-
         }
     }
+
 
     fun uiKitDetail(transactionRequest: TransactionRequest, name: String, email: String) {
         val customerDetails = CustomerDetails()
@@ -300,22 +339,28 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val day = todayDate.get(Calendar.DAY_OF_MONTH)
 
 
-        val mDialog = DatePickerDialog(this, { _, mYear, mMonth, mDay ->
-            mCalendar[Calendar.YEAR] = mYear
-            mCalendar[Calendar.MONTH] = mMonth
-            mCalendar[Calendar.DAY_OF_MONTH] = mDay
-            resulDate = sdf.format(mCalendar.time)
-            Log.e("resultDate", "$resulDate")
+        val mDialog = DatePickerDialog(
+            this,
+            { _, mYear, mMonth, mDay ->
+                mCalendar[Calendar.YEAR] = mYear
+                mCalendar[Calendar.MONTH] = mMonth
+                mCalendar[Calendar.DAY_OF_MONTH] = mDay
+                resulDate = sdf.format(mCalendar.time)
+                Log.e("resultDate", "$resulDate")
 
 
-            binding.tvDate.text = sdf.format(mCalendar.time)
-            resulHarga = "0"
-            binding.tvHarga.text = resulHarga
+                binding.tvDate.text = sdf.format(mCalendar.time)
+                resulHarga = "0"
+                binding.tvHarga.text = resulHarga
 
-            if (resultLap != null && resulDate != null) {
-                setupChip()
-            }
-        }, mCalendar[Calendar.YEAR], mCalendar[Calendar.MONTH], mCalendar[Calendar.DAY_OF_MONTH])
+                if (resultLap != null && resulDate != null) {
+                    setupChip()
+                }
+            },
+            mCalendar[Calendar.YEAR],
+            mCalendar[Calendar.MONTH],
+            mCalendar[Calendar.DAY_OF_MONTH]
+        )
 
         mCalendar.set(year, month, day)
         mDialog.datePicker.minDate = mCalendar.timeInMillis
