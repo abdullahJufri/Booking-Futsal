@@ -63,6 +63,11 @@ class DashboardViewmodels(private val pref: SettingPreferences) : ViewModel() {
             pref.saveUser(auth)
         }
     }
+    fun logout() {
+        viewModelScope.launch {
+            pref.logout()
+        }
+    }
 
 
     companion object {

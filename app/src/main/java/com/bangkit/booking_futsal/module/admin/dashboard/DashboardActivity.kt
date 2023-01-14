@@ -13,6 +13,7 @@ import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.data.remote.model.Auth
 import com.bangkit.booking_futsal.databinding.ActivityDashboardBinding
 import com.bangkit.booking_futsal.module.admin.check.CheckActivity
+import com.bangkit.booking_futsal.module.auth.AuthActivity
 import com.bangkit.booking_futsal.module.splashscreen.dataStore
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 import com.bangkit.booking_futsal.utils.showLoading
@@ -28,8 +29,32 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViewmodel()
+        setupCheck()
+        setupLogout()
 
 
+
+    }
+
+    fun setupLogout(){
+        binding.btnLogout.setOnClickListener {
+            viewmodels.logout()
+            intent = android.content.Intent(this, AuthActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Cek Booking", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun setupInsert(){
+        binding.btnInsertBooking.setOnClickListener {
+            intent = android.content.Intent(this, CheckActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Cek Booking", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    fun setupCheck(){
         binding.btnCekBooking.setOnClickListener {
             intent = android.content.Intent(this, CheckActivity::class.java)
             startActivity(intent)
@@ -60,6 +85,7 @@ class DashboardActivity : AppCompatActivity() {
                     true,
                     it.id,
                 )
+                binding.tvDashboardFutsal.text = it.name
                 viewmodels.saveUser(model)
                 Log.e("Futsal", it.toString())
             }
