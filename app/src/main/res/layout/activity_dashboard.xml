@@ -175,7 +175,7 @@
                         android:layout_below="@id/bus1"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Bus"
+                        android:text="Jadwal"
                         android:textSize="24sp" />
 
                     <ImageView
