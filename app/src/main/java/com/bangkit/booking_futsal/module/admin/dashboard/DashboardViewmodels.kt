@@ -43,13 +43,13 @@ class DashboardViewmodels(private val pref: SettingPreferences) : ViewModel() {
                         }
                     }
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "onFailure1: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<DashboardResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message}")
+                Log.e(TAG, "onFailure2: ${t.message}")
             }
         })
     }
@@ -71,6 +71,6 @@ class DashboardViewmodels(private val pref: SettingPreferences) : ViewModel() {
 
 
     companion object {
-        private const val TAG = "checkViewmodel"
+        private const val TAG = "dashboardViewmodel"
     }
 }

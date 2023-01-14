@@ -41,6 +41,7 @@ class DashboardActivity : AppCompatActivity() {
             viewmodels.logout()
             intent = android.content.Intent(this, AuthActivity::class.java)
             startActivity(intent)
+            finish()
             Toast.makeText(this, "Cek Booking", Toast.LENGTH_SHORT).show()
         }
     }
@@ -87,7 +88,7 @@ class DashboardActivity : AppCompatActivity() {
                 )
                 binding.tvDashboardFutsal.text = it.name
                 viewmodels.saveUser(model)
-                Log.e("Futsal", it.toString())
+                Log.e("Futsal123", it.toString())
             }
         }
     }
