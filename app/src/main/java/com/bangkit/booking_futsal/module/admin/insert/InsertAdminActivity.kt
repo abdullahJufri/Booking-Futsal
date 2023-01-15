@@ -1,5 +1,6 @@
 package com.bangkit.booking_futsal.module.admin.insert
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
@@ -78,6 +79,29 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
     }
 
+    private fun showDialog(OrderId: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Transaksi ID :")
+        builder.setMessage(OrderId)
+//builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT).show()
+        }
+
+//        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+//            Toast.makeText(applicationContext,
+//                android.R.string.no, Toast.LENGTH_SHORT).show()
+//        }
+//
+//        builder.setNeutralButton("Maybe") { dialog, which ->
+//            Toast.makeText(applicationContext,
+//                "Maybe", Toast.LENGTH_SHORT).show()
+//        }
+        builder.show()
+    }
+
     private fun settingBtn() {
         binding.btnBayar.isEnabled = resulHarga != "0"
     }
@@ -93,7 +117,7 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             val email = it.email
             val idUser = it.id
             val status = "offline"
-            val orderID = System.currentTimeMillis().toString()
+
             binding.btnBayar.setOnClickListener {
 
 
@@ -119,6 +143,7 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                         binding.btnBayar.isEnabled = false
 //                    finish()
                     } else {
+                        val orderID = System.currentTimeMillis().toString()
                         viewmodel.insert(
                             id.toString(),
                             resultLap.toString(),
@@ -138,6 +163,7 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                                             Toast.LENGTH_SHORT
                                         )
                                             .show()
+                                        showDialog(orderID)
                                         setupChip()
 //                                        finish()
 //                                        startActivity(intent)
@@ -148,7 +174,9 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                                             Toast.LENGTH_SHORT
                                         )
                                             .show()
+
                                         setupChip()
+
                                     }
                                 }
 
