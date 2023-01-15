@@ -38,6 +38,10 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
+        viewmodel.getUser().observe(viewLifecycleOwner) {
+            binding.tvPrfName.text = it.name
+            binding.tvPrfEmail.text = it.email
+        }
         binding.btnLogout.setOnClickListener {
             viewmodel.logout()
             val intent = Intent(activity, AuthActivity::class.java)
