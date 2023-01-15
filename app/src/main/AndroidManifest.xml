@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,73 +16,80 @@
         android:theme="@style/Theme.BookingFutsal"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:usesCleartextTraffic,android:appComponentFactory"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".TransaksiActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".module.admin.insert.InsertAdminActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.admin.check.CheckActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.route.RouteActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.admin.dashboard.DashboardActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.history.detail.HistoryDetailActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.auth.AuthActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.home.booking.BookingActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.home.detail.DetailActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.main.MainActivity"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".module.splashscreen.SplashScreenActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

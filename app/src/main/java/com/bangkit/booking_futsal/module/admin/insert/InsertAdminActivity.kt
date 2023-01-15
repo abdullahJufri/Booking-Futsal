@@ -86,8 +86,7 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.yes, Toast.LENGTH_SHORT).show()
+
         }
 
 //        builder.setNegativeButton(android.R.string.no) { dialog, which ->
@@ -143,7 +142,7 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                         binding.btnBayar.isEnabled = false
 //                    finish()
                     } else {
-                        val orderID = System.currentTimeMillis().toString()
+                        val orderID = "${futsal.id}-${ System.currentTimeMillis()}"
                         viewmodel.insert(
                             id.toString(),
                             resultLap.toString(),

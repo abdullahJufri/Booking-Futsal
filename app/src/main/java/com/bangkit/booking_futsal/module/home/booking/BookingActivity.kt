@@ -114,7 +114,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
     fun setupMidtrans(name: String, email: String, idUser: String) {
 
-        val orderID = System.currentTimeMillis().toString()
+        val orderID = "${futsal.id}-${ System.currentTimeMillis()}"
         SdkUIFlowBuilder.init()
             .setClientKey("SB-Mid-client-9a98NH6qLZxBZ3py")
             .setContext(applicationContext)
