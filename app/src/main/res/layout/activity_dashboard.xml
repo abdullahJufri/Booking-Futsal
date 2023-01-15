@@ -197,6 +197,8 @@
                 android:layout_weight="1">
 
                 <RelativeLayout
+                    android:id="@+id/btn_edit_futsal"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -207,7 +209,7 @@
                         android:layout_below="@id/train"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Train"
+                        android:text="Edit Futsal"
                         android:textSize="24sp" />
 
                     <ImageView
@@ -263,35 +265,7 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/airplane"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:text="Train"
-                        android:textSize="24sp" />
-
-                    <ImageView
-                        android:id="@+id/airplane"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        app:srcCompat="@drawable/ic_baseline_email_false" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
         </LinearLayout>
 
         <TextView

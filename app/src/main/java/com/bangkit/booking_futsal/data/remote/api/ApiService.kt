@@ -94,4 +94,15 @@ interface ApiService {
         @Field("id_futsal") idFutsal: String,
         @Field("updated_at") updatedAt: String,
     ): Call<TransaksiResponse>
+
+    @FormUrlEncoded
+    @POST("admin/futsal/update")
+    fun updateFutsal(
+        @Field("id_pengelola") idPengelola: String,
+        @Field("alamat_lapangan") alamatLapangan: String,
+        @Field("jumlah_lapangan") jumlahLapangan: String,
+        @Field("harga_pagi") jamBuka: String,
+        @Field("harga_malam") jamTutup: String,
+//        @Field("harga") harga: String,
+    ): Call<InsertResponse>
 }

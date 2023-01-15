@@ -17,6 +17,7 @@ import com.bangkit.booking_futsal.data.remote.model.Auth
 import com.bangkit.booking_futsal.data.remote.model.DashboardItem
 import com.bangkit.booking_futsal.databinding.ActivityDashboardBinding
 import com.bangkit.booking_futsal.module.admin.check.CheckActivity
+import com.bangkit.booking_futsal.module.admin.edit.EditFutsalActivity
 import com.bangkit.booking_futsal.module.admin.insert.InsertAdminActivity
 import com.bangkit.booking_futsal.module.admin.transaksi.TransaksiActivity
 import com.bangkit.booking_futsal.module.auth.AuthActivity
@@ -55,9 +56,19 @@ class DashboardActivity : AppCompatActivity() {
             Toast.makeText(this, "Cek Booking", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun setupEditFutsal(futsal: DashboardItem){
+        binding.btnEditFutsal.setOnClickListener{
+            intent = Intent(this, EditFutsalActivity::class.java)
+            intent.putExtra(EditFutsalActivity.EXTRA_FUTSAL, futsal)
+            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
+            Toast.makeText(this, "Edit Futsal", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     fun setupTransaksi(futsal: DashboardItem){
         binding.btnTransaksi.setOnClickListener {
-            intent = android.content.Intent(this, TransaksiActivity::class.java)
+            intent = Intent(this, TransaksiActivity::class.java)
             intent.putExtra(TransaksiActivity.EXTRA_FUTSAL, futsal)
             startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
 
@@ -113,6 +124,7 @@ class DashboardActivity : AppCompatActivity() {
                 )
                 setupInsert(it)
                 setupTransaksi(it)
+                setupEditFutsal(it)
                 binding.tvDashboardFutsal.text = it.name
                 viewmodels.saveUser(model)
                 Log.e("Futsal123", it.toString())

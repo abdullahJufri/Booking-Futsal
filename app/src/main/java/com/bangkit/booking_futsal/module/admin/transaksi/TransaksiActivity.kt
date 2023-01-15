@@ -44,7 +44,7 @@ private lateinit var binding: ActivityTransaksiBinding
         setContentView(binding.root)
 
         setupViewmodel()
-        futsal = intent.getParcelableExtra(InsertAdminActivity.EXTRA_FUTSAL)!!
+        futsal = intent.getParcelableExtra(EXTRA_FUTSAL)!!
         viewmodel.getDataIntent(futsal)
 
         binding.btnDate.setOnClickListener {
