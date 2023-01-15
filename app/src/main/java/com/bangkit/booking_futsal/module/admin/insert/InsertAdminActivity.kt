@@ -138,6 +138,9 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                                             Toast.LENGTH_SHORT
                                         )
                                             .show()
+                                        setupChip()
+//                                        finish()
+//                                        startActivity(intent)
                                     } else {
                                         Toast.makeText(
                                             this@InsertAdminActivity,
@@ -145,6 +148,7 @@ class InsertAdminActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                                             Toast.LENGTH_SHORT
                                         )
                                             .show()
+                                        setupChip()
                                     }
                                 }
 
