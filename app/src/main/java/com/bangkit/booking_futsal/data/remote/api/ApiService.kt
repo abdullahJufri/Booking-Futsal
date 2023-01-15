@@ -87,4 +87,11 @@ interface ApiService {
     fun getAdminFutsal(
         @Field("id_pengelola") idPengelola: String,
     ): Call<DashboardResponse>
+
+    @FormUrlEncoded
+    @POST("admin/schedule")
+    fun getTransaksi(
+        @Field("id_futsal") idFutsal: String,
+        @Field("updated_at") updatedAt: String,
+    ): Call<TransaksiResponse>
 }

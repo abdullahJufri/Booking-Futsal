@@ -165,6 +165,8 @@
                 android:layout_weight="1">
 
                 <RelativeLayout
+                    android:id="@+id/btn_transaksi"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -175,7 +177,7 @@
                         android:layout_below="@id/bus1"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Jadwal"
+                        android:text="Transaksi"
                         android:textSize="24sp" />
 
                     <ImageView

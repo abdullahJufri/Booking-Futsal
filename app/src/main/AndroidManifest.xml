@@ -18,7 +18,7 @@
         tools:replace="android:allowBackup,android:usesCleartextTraffic,android:appComponentFactory"
         tools:targetApi="31" >
         <activity
-            android:name=".TransaksiActivity"
+            android:name=".module.admin.transaksi.TransaksiActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"

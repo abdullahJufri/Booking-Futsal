@@ -18,6 +18,7 @@ import com.bangkit.booking_futsal.data.remote.model.DashboardItem
 import com.bangkit.booking_futsal.databinding.ActivityDashboardBinding
 import com.bangkit.booking_futsal.module.admin.check.CheckActivity
 import com.bangkit.booking_futsal.module.admin.insert.InsertAdminActivity
+import com.bangkit.booking_futsal.module.admin.transaksi.TransaksiActivity
 import com.bangkit.booking_futsal.module.auth.AuthActivity
 import com.bangkit.booking_futsal.module.home.detail.DetailActivity
 import com.bangkit.booking_futsal.module.splashscreen.dataStore
@@ -52,6 +53,17 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
             Toast.makeText(this, "Cek Booking", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun setupTransaksi(futsal: DashboardItem){
+        binding.btnTransaksi.setOnClickListener {
+            intent = android.content.Intent(this, TransaksiActivity::class.java)
+            intent.putExtra(TransaksiActivity.EXTRA_FUTSAL, futsal)
+            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
+
+//            val intent = Intent(this, InsertAdminActivity::class.java)
+//            startActivity(intent)
+            Toast.makeText(this, "Transaksi", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -100,6 +112,7 @@ class DashboardActivity : AppCompatActivity() {
                     it.id,
                 )
                 setupInsert(it)
+                setupTransaksi(it)
                 binding.tvDashboardFutsal.text = it.name
                 viewmodels.saveUser(model)
                 Log.e("Futsal123", it.toString())
