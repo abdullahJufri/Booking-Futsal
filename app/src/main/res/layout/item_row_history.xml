@@ -47,6 +47,20 @@
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_item_lap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Nama Lapangan"
+            android:transitionName="name"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
+
+        <TextView
             android:id="@+id/tv_item_tanggal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +69,7 @@
             android:text="Tanggal"
             android:transitionName="harga"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_lap" />
 
         <TextView
             android:id="@+id/tv_order"
@@ -91,11 +105,11 @@
             android:id="@+id/tv_history_jam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="Jam"
             card_view:layout_constraintStart_toEndOf="@+id/tv_item_tanggal"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_lap" />
         <!--            android:contentDescription="@string/Descriptions" />-->
 
         <!--        <TextView-->

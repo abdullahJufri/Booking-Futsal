@@ -1,11 +1,9 @@
 package com.bangkit.booking_futsal.module.history.detail
 
-import android.graphics.Color.green
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.map
 import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.remote.model.HistoryItem
 import com.bangkit.booking_futsal.databinding.ActivityHistoryDetailBinding
@@ -44,17 +42,27 @@ class HistoryDetailActivity : AppCompatActivity() {
 
                 }
 
-            } else{
-                if (it.transactionStatus == status){
-                    with(binding.tvStatus) {
-                        text = it.transactionStatus
-                        setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
+            } else {
+                if (it.transactionStatus == status) {
+                    if (status == "settlement") {
+                        with(binding.tvStatus) {
+                            text = it.transactionStatus
+                            setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
+                            setTextColor(resources.getColor(R.color.white))
+                        }
+                    } else {
+                        with(binding.tvStatus) {
+                            text = it.transactionStatus
+                            setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
+                            setTextColor(resources.getColor(R.color.white))
+                        }
+
                     }
-                } else{
-                    viewmodel.update(orderId.toString(),it.transactionStatus.toString(),object :
-                        AuthCallbackString{
+                } else {
+                    viewmodel.update(orderId.toString(), it.transactionStatus.toString(), object :
+                        AuthCallbackString {
                         override fun onResponse(success: String, message: String) {
-                            with(binding.tvStatus){
+                            with(binding.tvStatus) {
                                 text = it.transactionStatus
                                 setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
                                 setTextColor(resources.getColor(R.color.white))
@@ -77,7 +85,6 @@ class HistoryDetailActivity : AppCompatActivity() {
             }
 
         }
-
 
 
     }
