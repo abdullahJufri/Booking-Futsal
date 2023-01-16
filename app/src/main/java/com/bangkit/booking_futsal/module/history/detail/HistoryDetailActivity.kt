@@ -53,8 +53,14 @@ class HistoryDetailActivity : AppCompatActivity() {
                     } else {
                         with(binding.tvStatus) {
                             text = it.transactionStatus
-                            setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
-                            setTextColor(resources.getColor(R.color.white))
+                            if (text == "settlement"){
+                                setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
+                                setTextColor(resources.getColor(R.color.white))
+                            } else{
+                                setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
+                                setTextColor(resources.getColor(R.color.white))
+                            }
+
                         }
 
                     }

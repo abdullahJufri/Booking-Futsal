@@ -68,7 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:srcCompat="@drawable/ball" />
+            app:srcCompat="@drawable/undraw_junior_soccer_6sop" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -133,7 +133,7 @@
                         android:layout_below="@id/imageView3"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Insert Booking"
+                        android:text="Insert"
                         android:textSize="24sp" />
 
                     <ImageView

@@ -6,80 +6,96 @@
     android:layout_height="match_parent"
     tools:context=".module.home.detail.DetailActivity">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
-        android:background="@color/md_theme_light_primaryContainer"
+        android:background="@drawable/layout_bg"
+        android:elevation="2dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_booking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_dtl_photos"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="@+id/img_dtl_photos"
+        app:layout_constraintVertical_bias="0.65">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_dtl_jam_tutup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-            <TextView
-                android:id="@+id/tv_dtl_jam_buka"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toEndOf="@+id/textView13"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-            <TextView
-                android:id="@+id/tv_dtl_lap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/tv_dtl_alamat" />
-
-            <TextView
-                android:id="@+id/textView8"
-                style="@style/TextAppearance.MaterialComponents.Body2"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Jumlah Lapangan :"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_dtl_alamat" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_dtl_alamat">
 
-            <TextView
-                android:id="@+id/textView13"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Jam Buka :"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="32dp"
+                    app:srcCompat="@drawable/lap11" />
+
+                <TextView
+                    android:id="@+id/tv_dtl_lap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="32dp"
+                    app:srcCompat="@drawable/timer" />
+
+                <TextView
+                    android:id="@+id/tv_dtl_jam_buka"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/textView36"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/tv_dtl_jam_tutup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_dtl_name"
                 style="@style/TextAppearance.Material3.TitleMedium"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
                 android:text="Nama Futsal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,48 +104,24 @@
                 style="@style/TextAppearance.Material3.TitleSmall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:gravity="center"
                 android:text="Alamat"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/btn_map"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_dtl_name" />
 
-            <TextView
-                android:id="@+id/textView14"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="Jam Tutup :"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-            <ImageButton
-                android:id="@+id/btn_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@null"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_dtl_name"
-                app:srcCompat="@drawable/ic_baseline_location_on_24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/img_dtl_photos"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -145,5 +137,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_map"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_dtl_photos"
+        app:srcCompat="@drawable/loc10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
