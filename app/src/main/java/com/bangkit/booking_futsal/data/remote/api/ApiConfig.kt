@@ -7,7 +7,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
+//     val baseUrl = "http://192.168.0.238:80/api/"
     companion object {
+        const val baseUrl = "http://192.168.0.238:80/"
         fun getApiService(): ApiService {
             val loggingInterceptor = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -18,7 +20,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.55.43:80/api/")
+                .baseUrl("$baseUrl/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

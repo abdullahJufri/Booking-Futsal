@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:flow_wrapMode="chain"
     tools:context=".module.admin.edit.EditFutsalActivity">
 
     <EditText
@@ -73,17 +74,19 @@
         android:id="@+id/textView23"
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="Nama Futsal :"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
         android:id="@+id/tv_edit_nama"
+        app:flow_wrapMode="chain"
         style="@style/TextAppearance.Material3.BodyLarge"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
