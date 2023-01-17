@@ -6,8 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".module.home.detail.DetailActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/md_theme_light_primary"
+        app:layout_constraintBottom_toTopOf="@+id/lienarlayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
     <LinearLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/lienarlayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -16,6 +27,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/layout_bg"
         android:elevation="2dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btn_booking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

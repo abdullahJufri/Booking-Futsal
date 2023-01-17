@@ -161,7 +161,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 val inten = Intent(this, MainActivity::class.java)
                 startActivity(inten)
             })
-            .setMerchantBaseUrl("https://agussgans.000webhostapp.com/test.php/charge/")
+            .setMerchantBaseUrl("http://192.168.55.43:8000/test.php/charge/")
             .enableLog(true)
             .setLanguage("id")
             .buildSDK()

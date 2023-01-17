@@ -112,6 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="0"
+        style="@style/TextAppearance.Material3.LabelLarge"
         app:layout_constraintBottom_toTopOf="@+id/btn_bayar"
         app:layout_constraintStart_toEndOf="@+id/textView2" />
 
@@ -120,7 +121,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+
         android:layout_marginEnd="16dp"
+        style="@style/TextAppearance.Material3.LabelLarge"
         android:layout_marginBottom="16dp"
         android:text="Harga : Rp."
         app:layout_constraintBottom_toTopOf="@+id/btn_bayar"
@@ -134,6 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        style="@style/TextAppearance.Material3.LabelLarge"
         android:text="Pilih Tanggal :"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

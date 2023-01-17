@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.databinding.ActivityCheckBinding
 import com.bangkit.booking_futsal.module.main.MainViewmodels
@@ -25,16 +26,19 @@ class CheckActivity : AppCompatActivity() {
 
         val id = binding.edtCheck.text
         Log.e("id", id.toString())
+        setupViewModel()
         binding.btnCheck.setOnClickListener {
-            setupViewModel(id.toString())
+            SetupCek(id.toString())
         }
     }
 
-    private fun setupViewModel(id:String) {
+    private fun setupViewModel() {
         mainViewModel = ViewModelProvider(
             this,
             ViewModelFactory(SettingPreferences.getInstance(dataStore), this)
         )[MainViewmodels::class.java]
+    }
+   private fun SetupCek(id : String){
         mainViewModel.getUser().observe(this) {
             val idFutsal = it.futsal_id
             viewmodels.checkOrder(idFutsal.toString(),id,object : AuthCallbackString {
@@ -62,6 +66,17 @@ class CheckActivity : AppCompatActivity() {
                 tvCheckTanggal.text = it.tanggal
                 tvCheckJam.text = it.jam
                 tvCheckStatus.text = it.status
+            }
+            if (binding.tvCheckStatus.text == "settlement"){
+                with(binding.tvCheckStatus) {
+                    setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
+                    setTextColor(resources.getColor(com.bangkit.booking_futsal.R.color.white))
+                }
+            } else{
+                with(binding.tvCheckStatus) {
+                    setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
+                    setTextColor(resources.getColor(com.bangkit.booking_futsal.R.color.white))
+                }
             }
             Log.e("TAG", "setupViewModel1: $it")
             Log.e("TAG", "setupViewModel2: ${ it.status }")

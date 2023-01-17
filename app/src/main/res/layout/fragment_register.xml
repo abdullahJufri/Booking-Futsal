@@ -6,12 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".module.auth.register.RegisterFragment">
 
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="60dp"
+        android:text="Register"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.bangkit.booking_futsal.costomview.MyEditTextName
         android:id="@+id/edt_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="32dp"
         android:autofillHints="@string/name"
         android:background="@drawable/costom_input"
         android:drawableStart="@drawable/costom_name"
@@ -22,7 +35,7 @@
         android:paddingHorizontal="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <com.bangkit.booking_futsal.costomview.MyEditTextEmail
         android:id="@+id/edt_email"

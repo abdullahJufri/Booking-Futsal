@@ -53,14 +53,8 @@ class HistoryDetailActivity : AppCompatActivity() {
                     } else {
                         with(binding.tvStatus) {
                             text = it.transactionStatus
-                            if (text == "settlement"){
-                                setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
-                                setTextColor(resources.getColor(R.color.white))
-                            } else{
-                                setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
-                                setTextColor(resources.getColor(R.color.white))
-                            }
-
+                            setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
+                            setTextColor(resources.getColor(R.color.white))
                         }
 
                     }
@@ -68,12 +62,20 @@ class HistoryDetailActivity : AppCompatActivity() {
                     viewmodel.update(orderId.toString(), it.transactionStatus.toString(), object :
                         AuthCallbackString {
                         override fun onResponse(success: String, message: String) {
-                            with(binding.tvStatus) {
-                                text = it.transactionStatus
-                                setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
-                                setTextColor(resources.getColor(R.color.white))
-                            }
+                            if (it.transactionStatus == "settlement") {
+                                with(binding.tvStatus) {
+                                    text = it.transactionStatus
+                                    setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
+                                    setTextColor(resources.getColor(R.color.white))
+                                }
+                            } else {
+                                with(binding.tvStatus) {
+                                    text = it.transactionStatus
+                                    setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_failed))
+                                    setTextColor(resources.getColor(R.color.white))
+                                }
 
+                            }
                         }
 
                     })
