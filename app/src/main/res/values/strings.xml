@@ -8,7 +8,7 @@
     <string name="email">email@example.com</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="passwordValid">Password must be more than 6</string>
+    <string name="passwordValid">Password must be more than 8</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
     <string name="home_title">Home</string>
