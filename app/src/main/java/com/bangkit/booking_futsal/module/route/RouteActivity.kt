@@ -35,19 +35,16 @@ class RouteActivity : AppCompatActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                    onBackPressed()
 
                 }
                 "0" -> {
                     val intent = Intent(this, DashboardActivity::class.java)
                     startActivity(intent)
-                    onBackPressed()
                 }
                 else -> {
                     val intent = Intent(this, AuthActivity::class.java)
                     startActivity(intent)
                     finish()
-                    onBackPressed()
                 }
             }
 //            if (roles == "1") {
