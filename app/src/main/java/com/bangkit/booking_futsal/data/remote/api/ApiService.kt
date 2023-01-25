@@ -60,7 +60,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("history/update")
-    fun updateHistory(
+    fun updateStatus(
         @Field("order_id") orderId: String,
         @Field("status") status: String,
     ): Call<InsertResponse>

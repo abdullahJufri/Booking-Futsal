@@ -176,6 +176,42 @@ class BookingViewmodels : ViewModel() {
         })
     }
 
+    fun update(
+        orderId: String,
+        status: String,
+        callback: AuthCallbackString
+    ) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().updateStatus(orderId,status)
+        client.enqueue(object : Callback<InsertResponse> {
+            override fun onResponse(
+                call: Call<InsertResponse>,
+                response: Response<InsertResponse>,
+            ) {
+                _isLoading.value = false
+                val responseBody = response.body()
+                if (responseBody != null) {
+                    callback.onResponse(
+                        responseBody.success.toString(),
+                        responseBody.message.toString()
+                    )
+                    Log.e(ContentValues.TAG, "onResponse: ${response.body()}")
+                } else {
+                    callback.onResponse(
+                        responseBody?.success.toString(),
+                        responseBody?.message.toString()
+                    )
+                    Log.e("regis", "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<InsertResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
 
     companion object {
         private const val TAG = "bookingViewmodel"

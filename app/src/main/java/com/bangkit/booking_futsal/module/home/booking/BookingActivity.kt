@@ -16,6 +16,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.data.remote.model.ScheduleItem
@@ -136,28 +137,12 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                     Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show()
 
                 }
-                viewmodel.insert(
-                    id.toString(),
-                    resultLap.toString(),
-                    resulDate.toString(),
-                    resultJam.toString(),
-                    idUser,
-                    resulHarga.toString(),
-                    orderID,
-                    status.toString(),
-                    object :
-                        AuthCallbackString {
-                        override fun onResponse(success: String, message: String) {
-                            if (success == "true") {
-                                Toast.makeText(this@BookingActivity, "Berhasil", Toast.LENGTH_SHORT)
-                                    .show()
-                            } else {
-                                Toast.makeText(this@BookingActivity, "Gagal", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-                        }
+                viewmodel.update(orderID, status.toString(), object :
+                    AuthCallbackString {
+                    override fun onResponse(success: String, message: String) {
+                    }
 
-                    })
+                })
                 val inten = Intent(this, MainActivity::class.java)
                 startActivity(inten)
             })
@@ -188,9 +173,33 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                     Log.e("Abdul", "if: $c")
                     Log.e("TAG", "run: ${it.map { it.jam?.take(2) }}")
                     Toast.makeText(this, "Jam Sudah Terbooking", Toast.LENGTH_SHORT).show()
+                    setupChip()
                     binding.btnBayar.isEnabled = false
 //                    finish()
                 } else {
+                    viewmodel.insert(
+                        id.toString(),
+                        resultLap.toString(),
+                        resulDate.toString(),
+                        resultJam.toString(),
+                        idUser,
+                        resulHarga.toString(),
+                        orderID,
+                        "pending",
+                        object :
+                            AuthCallbackString {
+                            override fun onResponse(success: String, message: String) {
+                                setupChip()
+                                if (success == "true") {
+                                    Toast.makeText(this@BookingActivity, "Berhasil", Toast.LENGTH_SHORT)
+                                        .show()
+                                } else {
+                                    Toast.makeText(this@BookingActivity, "Gagal", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            }
+
+                        })
                     Log.e("Abdul", "else: $c")
                     val transactionRequest = resulHarga?.toDouble()?.let { it1 ->
                         TransactionRequest(
@@ -215,6 +224,8 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                     MidtransSDK.getInstance().startPaymentUiFlow(this)
 
                 }
+
+
 
 //            val transactionRequest = TransactionRequest()
 
