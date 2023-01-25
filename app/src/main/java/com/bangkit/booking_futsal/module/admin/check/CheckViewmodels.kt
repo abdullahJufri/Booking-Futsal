@@ -13,6 +13,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CheckViewmodels: ViewModel() {
+    var result2 = ""
+
     private val _itemCheck = MutableLiveData<CheckItem>()
     val itemCheck: LiveData<CheckItem> = _itemCheck
 
@@ -21,6 +23,10 @@ class CheckViewmodels: ViewModel() {
 
     private val _isHaveData = MutableLiveData<Boolean>()
 
+    fun scan(result:String): String {
+        this.result2 = result
+        return result
+    }
 
     fun checkOrder(orderID: String,idFutsal: String,callback: AuthCallbackString) {
         _isLoading.value = true

@@ -1,5 +1,6 @@
 package com.bangkit.booking_futsal.module.admin.check
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -13,16 +14,25 @@ import com.bangkit.booking_futsal.module.splashscreen.dataStore
 import com.bangkit.booking_futsal.utils.AuthCallbackString
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 import com.bangkit.booking_futsal.utils.showLoading
+import com.google.zxing.integration.android.IntentIntegrator
+import com.google.zxing.integration.android.IntentResult
 
 class CheckActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheckBinding
     private val viewmodels: CheckViewmodels by viewModels()
     private lateinit var mainViewModel: MainViewmodels
-
+    var scannedResult: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnScan.setOnClickListener {
+            run {
+                IntentIntegrator(this@CheckActivity).initiateScan();
+            }
+        }
+        displayResult()
 
         val id = binding.edtCheck.text
         Log.e("id", id.toString())
@@ -31,6 +41,45 @@ class CheckActivity : AppCompatActivity() {
             SetupCek(id.toString())
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        var result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        if(result != null){
+
+            if(result.contents != null){
+                scannedResult = result.contents
+                binding.edtCheck.setText(scannedResult)
+                viewmodels.scan(result.contents)
+            } else {
+                binding.edtCheck.setText("scan failed")
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun displayResult() {
+        binding.edtCheck.setText(viewmodels.result2)
+    }
+
+//    override fun onSaveInstanceState(outState: Bundle?) {
+//
+//        outState?.putString("scannedResult", scannedResult)
+//        super.onSaveInstanceState(outState)
+//    }
+//
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+//        super.onRestoreInstanceState(savedInstanceState)
+//
+//        savedInstanceState?.let {
+//            scannedResult = it.getString("scannedResult")
+//            binding.txtValue.text = scannedResult
+//        }
+//    }
+
+
 
     private fun setupViewModel() {
         mainViewModel = ViewModelProvider(

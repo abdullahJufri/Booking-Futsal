@@ -40,6 +40,7 @@
         </activity>
         <activity
             android:name=".module.admin.check.CheckActivity"
+            android:hardwareAccelerated="true"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
