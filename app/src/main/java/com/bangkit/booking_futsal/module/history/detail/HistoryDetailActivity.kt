@@ -1,13 +1,17 @@
 package com.bangkit.booking_futsal.module.history.detail
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.remote.model.HistoryItem
 import com.bangkit.booking_futsal.databinding.ActivityHistoryDetailBinding
 import com.bangkit.booking_futsal.utils.AuthCallbackString
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.oned.Code128Writer
 
 class HistoryDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryDetailBinding
@@ -81,6 +85,9 @@ class HistoryDetailActivity : AppCompatActivity() {
                     })
                 }
             }
+            val transactionId = viewmodel.hystoriesItem.orderId
+            Log.e("TAG", "transactionID: $transactionId")
+            displayBitmap(transactionId.toString())
             with(binding) {
                 tvName.text = viewmodel.hystoriesItem.name
                 tvJenis.text = viewmodel.hystoriesItem.nama_lapangan
@@ -97,29 +104,61 @@ class HistoryDetailActivity : AppCompatActivity() {
 
     }
 
-//    private fun displayResult() {
-//        viewmodel.isLoading.observe(this) {
-//            binding.progressBar.visibility =
-//                if (it) android.view.View.VISIBLE else android.view.View.GONE
-//        }
-//        val a = viewmodel.hystoriesItem.orderId
-//        val status = viewmodel.hystoriesItem.status
-//        viewmodel.getMidtrans(a.toString())
-//        viewmodel.itemMidtrans.observe(this) {
-//            Log.d("TAG", "displayResult: ${it.transactionStatus}")
-//            if (it.transactionStatus == status){
-//                binding.tvStatus.text = it.transactionStatus
-//            } else{
-//                binding.tvStatus.text = "belom"
-//            }
-//        }
-//
-//
-//        with(binding) {
-//            tvName.text = viewmodel.hystoriesItem.name
-////            tvStatus.text = viewmodel.hystoriesItem.status
-//        }
-//    }
+    private fun createBarcodeBitmap(
+        barcodeValue: String,
+        @ColorInt barcodeColor: Int,
+        @ColorInt backgroundColor: Int,
+        widthPixels: Int,
+        heightPixels: Int
+    ): Bitmap {
+        val bitMatrix = Code128Writer().encode(
+            barcodeValue,
+            BarcodeFormat.CODE_128,
+            widthPixels,
+            heightPixels
+        )
+
+        val pixels = IntArray(bitMatrix.width * bitMatrix.height)
+        for (y in 0 until bitMatrix.height) {
+            val offset = y * bitMatrix.width
+            for (x in 0 until bitMatrix.width) {
+                pixels[offset + x] =
+                    if (bitMatrix.get(x, y)) barcodeColor else backgroundColor
+            }
+        }
+
+        val bitmap = Bitmap.createBitmap(
+            bitMatrix.width,
+            bitMatrix.height,
+            Bitmap.Config.ARGB_8888
+        )
+        bitmap.setPixels(
+            pixels,
+            0,
+            bitMatrix.width,
+            0,
+            0,
+            bitMatrix.width,
+            bitMatrix.height
+        )
+        return bitmap
+    }
+
+    private fun displayBitmap(value: String) {
+        val widthPixels = resources.getDimensionPixelSize(R.dimen.width_barcode)
+        val heightPixels = resources.getDimensionPixelSize(R.dimen.height_barcode)
+
+        binding.imgBarcode.setImageBitmap(
+            createBarcodeBitmap(
+                barcodeValue = value,
+                barcodeColor = getColor(R.color.black),
+                backgroundColor = getColor(android.R.color.white),
+                widthPixels = widthPixels,
+                heightPixels = heightPixels
+            )
+        )
+        binding.textBarcodeNumber.text = value
+    }
 
     companion object {
         const val EXTRA_HISTORY = "extra_history"
