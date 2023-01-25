@@ -49,10 +49,12 @@ class HistoryDetailActivity : AppCompatActivity() {
             } else {
                 if (it.transactionStatus == status) {
                     if (status == "settlement") {
+                        val transactionId = viewmodel.hystoriesItem.orderId
                         with(binding.tvStatus) {
                             text = it.transactionStatus
                             setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
                             setTextColor(resources.getColor(R.color.white))
+                            displayBitmap(transactionId.toString())
                         }
                     } else {
                         with(binding.tvStatus) {
@@ -85,9 +87,8 @@ class HistoryDetailActivity : AppCompatActivity() {
                     })
                 }
             }
-            val transactionId = viewmodel.hystoriesItem.orderId
-            Log.e("TAG", "transactionID: $transactionId")
-            displayBitmap(transactionId.toString())
+
+
             with(binding) {
                 tvName.text = viewmodel.hystoriesItem.name
                 tvJenis.text = viewmodel.hystoriesItem.nama_lapangan
