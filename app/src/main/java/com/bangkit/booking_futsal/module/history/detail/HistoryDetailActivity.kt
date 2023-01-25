@@ -47,9 +47,10 @@ class HistoryDetailActivity : AppCompatActivity() {
                 }
 
             } else {
+                val transactionId = viewmodel.hystoriesItem.orderId
                 if (it.transactionStatus == status) {
                     if (status == "settlement") {
-                        val transactionId = viewmodel.hystoriesItem.orderId
+
                         with(binding.tvStatus) {
                             text = it.transactionStatus
                             setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
@@ -73,6 +74,7 @@ class HistoryDetailActivity : AppCompatActivity() {
                                     text = it.transactionStatus
                                     setBackgroundColor(resources.getColor(com.midtrans.sdk.uikit.R.color.payment_status_success))
                                     setTextColor(resources.getColor(R.color.white))
+                                    displayBitmap(transactionId.toString())
                                 }
                             } else {
                                 with(binding.tvStatus) {
