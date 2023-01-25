@@ -23,13 +23,15 @@
                 android:id="@+id/img_dtl_photos"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="140dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <LinearLayout
@@ -163,13 +165,15 @@
 
     <ImageButton
         android:id="@+id/btn_map"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_height="30dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_dtl_photos"
-        app:srcCompat="@drawable/loc10" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/location_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

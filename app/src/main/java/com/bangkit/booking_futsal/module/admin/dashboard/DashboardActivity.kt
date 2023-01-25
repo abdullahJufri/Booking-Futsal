@@ -1,6 +1,5 @@
 package com.bangkit.booking_futsal.module.admin.dashboard
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -20,8 +19,7 @@ import com.bangkit.booking_futsal.module.admin.check.CheckActivity
 import com.bangkit.booking_futsal.module.admin.edit.EditFutsalActivity
 import com.bangkit.booking_futsal.module.admin.insert.InsertAdminActivity
 import com.bangkit.booking_futsal.module.admin.transaksi.TransaksiActivity
-import com.bangkit.booking_futsal.module.auth.AuthActivity
-import com.bangkit.booking_futsal.module.home.detail.DetailActivity
+import com.bangkit.booking_futsal.module.route.RouteActivity
 import com.bangkit.booking_futsal.module.splashscreen.dataStore
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 import com.bangkit.booking_futsal.utils.showLoading
@@ -44,33 +42,43 @@ class DashboardActivity : AppCompatActivity() {
         setupLogout()
 
 
-
     }
 
-    fun setupLogout(){
+    fun setupLogout() {
         binding.btnLogout.setOnClickListener {
+            viewmodels.isLoading.observe(this) {
+                showLoading(it, binding.progressBar)
+            }
             viewmodels.logout()
-            intent = Intent(this, AuthActivity::class.java)
+
+            intent = Intent(this, RouteActivity::class.java)
             startActivity(intent)
             finish()
+//            onBackPressed()
             Toast.makeText(this, "Cek Booking", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun setupEditFutsal(futsal: DashboardItem){
-        binding.btnEditFutsal.setOnClickListener{
+    fun setupEditFutsal(futsal: DashboardItem) {
+        binding.btnEditFutsal.setOnClickListener {
             intent = Intent(this, EditFutsalActivity::class.java)
             intent.putExtra(EditFutsalActivity.EXTRA_FUTSAL, futsal)
-            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
+            startActivity(
+                intent,
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
+            )
             Toast.makeText(this, "Edit Futsal", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun setupTransaksi(futsal: DashboardItem){
+    fun setupTransaksi(futsal: DashboardItem) {
         binding.btnTransaksi.setOnClickListener {
             intent = Intent(this, TransaksiActivity::class.java)
             intent.putExtra(TransaksiActivity.EXTRA_FUTSAL, futsal)
-            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
+            startActivity(
+                intent,
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
+            )
 
 //            val intent = Intent(this, InsertAdminActivity::class.java)
 //            startActivity(intent)
@@ -78,11 +86,14 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    fun setupInsert(futsal: DashboardItem){
+    fun setupInsert(futsal: DashboardItem) {
         binding.btnInsertBooking.setOnClickListener {
             intent = android.content.Intent(this, InsertAdminActivity::class.java)
             intent.putExtra(InsertAdminActivity.EXTRA_FUTSAL, futsal)
-            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
+            startActivity(
+                intent,
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
+            )
 
 //            val intent = Intent(this, InsertAdminActivity::class.java)
 //            startActivity(intent)
@@ -91,7 +102,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
 
-    fun setupCheck(){
+    fun setupCheck() {
         binding.btnCekBooking.setOnClickListener {
             intent = Intent(this, CheckActivity::class.java)
             startActivity(intent)

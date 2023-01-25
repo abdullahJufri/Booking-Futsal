@@ -46,7 +46,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".module.route.RouteActivity"
+            android:name=".module.splashscreen.SplashScreenActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -95,7 +95,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".module.splashscreen.SplashScreenActivity"
+            android:name=".module.route.RouteActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.databinding.FragmentProfileBinding
-import com.bangkit.booking_futsal.module.auth.AuthActivity
 import com.bangkit.booking_futsal.module.main.MainViewmodels
+import com.bangkit.booking_futsal.module.route.RouteActivity
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -44,12 +44,17 @@ class ProfileFragment : Fragment() {
         }
         binding.btnLogout.setOnClickListener {
             viewmodel.logout()
-            val intent = Intent(activity, AuthActivity::class.java)
+            val intent = Intent(activity, RouteActivity::class.java)
             startActivity(intent)
-
+            activity?.finish()
 
 
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupViewModel() {

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bangkit.booking_futsal.R
 import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.module.admin.dashboard.DashboardActivity
+import com.bangkit.booking_futsal.module.auth.AuthActivity
 import com.bangkit.booking_futsal.module.main.MainActivity
 import com.bangkit.booking_futsal.module.main.MainViewmodels
 import com.bangkit.booking_futsal.module.splashscreen.dataStore
@@ -29,16 +30,38 @@ class RouteActivity : AppCompatActivity() {
         )[MainViewmodels::class.java]
         mainViewModel.getUser().observe(this) {
             val roles = it.roles
-            if (roles == "1") {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+            when (roles) {
+                "1" -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    onBackPressed()
 
-
-            } else {
-                val intent = Intent(this, DashboardActivity::class.java)
-                startActivity(intent)
+                }
+                "0" -> {
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    startActivity(intent)
+                    onBackPressed()
+                }
+                else -> {
+                    val intent = Intent(this, AuthActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    onBackPressed()
+                }
             }
+//            if (roles == "1") {
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//                onBackPressed()
+//
+//
+//            } else {
+//                val intent = Intent(this, DashboardActivity::class.java)
+//                startActivity(intent)
+//                onBackPressed()
+//            }
 
         }
 

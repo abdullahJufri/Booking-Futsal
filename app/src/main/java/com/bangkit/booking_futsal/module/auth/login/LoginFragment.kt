@@ -72,6 +72,7 @@ class LoginFragment : Fragment() {
                         requireActivity().run {
                             startActivity(Intent(this, RouteActivity::class.java))
                             finish()
+                            onBackPressed()
                         }
                     } else {
                         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
@@ -96,6 +97,11 @@ class LoginFragment : Fragment() {
 //                val intent = Intent(this@LoginActivity, MainActivity::class.java)
 //                startActivity(intent)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupViewModel() {

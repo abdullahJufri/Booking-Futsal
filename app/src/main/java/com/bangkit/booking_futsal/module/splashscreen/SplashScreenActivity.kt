@@ -47,9 +47,11 @@ class SplashScreenActivity : AppCompatActivity() {
                 if (it.roles == "1"){
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
+                    onBackPressed()
                 } else{
                     startActivity(Intent(this, DashboardActivity::class.java))
                     finish()
+                    onBackPressed()
                 }
             } else {
                 val intent = Intent(this, AuthActivity::class.java)

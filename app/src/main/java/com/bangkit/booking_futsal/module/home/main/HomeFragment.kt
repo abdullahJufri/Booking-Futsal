@@ -44,6 +44,11 @@ class HomeFragment : Fragment() {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun showRecyclerView() {
         binding.rvFutsals.layoutManager = LinearLayoutManager(activity)
         adapter = HomeAdapter()

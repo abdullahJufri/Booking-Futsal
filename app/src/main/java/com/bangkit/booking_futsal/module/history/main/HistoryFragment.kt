@@ -48,6 +48,10 @@ class HistoryFragment : Fragment() {
         showRecyclerView()
 
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun setupViewModel() {
         viewmodel = ViewModelProvider(

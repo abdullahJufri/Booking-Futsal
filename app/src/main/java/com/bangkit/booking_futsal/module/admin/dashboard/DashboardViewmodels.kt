@@ -64,8 +64,10 @@ class DashboardViewmodels(private val pref: SettingPreferences) : ViewModel() {
         }
     }
     fun logout() {
+        _isLoading.value = true
         viewModelScope.launch {
             pref.logout()
+            _isLoading.value = false
         }
     }
 
