@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object {
-        const val baseUrl = "http://djstudio.tech/"
+        const val baseUrl = "http://djstudio.my.id/"
         fun getApiService(): ApiService {
             val loggingInterceptor = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

@@ -146,7 +146,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 val inten = Intent(this, MainActivity::class.java)
                 startActivity(inten)
             })
-            .setMerchantBaseUrl("http://midtrans.djstudio.tech/test.php/charge/")
+            .setMerchantBaseUrl("http://midtrans.djstudio.my.id/test.php/charge/")
             .enableLog(true)
             .setLanguage("id")
             .buildSDK()
@@ -264,7 +264,6 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val jam_tutup = viewmodel.futsalsItem.jamTutup
         val nameList =
             arrayListOf(
-                "00:00",
                 "01:00",
                 "02:00",
                 "03:00",
@@ -287,7 +286,8 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 "20:00",
                 "21:00",
                 "22:00",
-                "23:00"
+                "23:00",
+                "24:00"
             )
 
 

@@ -32,13 +32,17 @@ class CheckActivity : AppCompatActivity() {
                 IntentIntegrator(this@CheckActivity).initiateScan();
             }
         }
-        displayResult()
+        val result = viewmodels.result2
+        displayResult(result)
 
-        val id = binding.edtCheck.text
-        Log.e("id", id.toString())
+
+
         setupViewModel()
         binding.btnCheck.setOnClickListener {
+            val id = binding.edtCheck.text
+            Log.e("resultabc1", id.toString())
             SetupCek(id.toString())
+            Log.e("resultabc", result.toString())
         }
     }
 
@@ -60,8 +64,8 @@ class CheckActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayResult() {
-        binding.edtCheck.setText(viewmodels.result2)
+    private fun displayResult(result: String) {
+        binding.edtCheck.setText(result)
     }
 
 //    override fun onSaveInstanceState(outState: Bundle?) {
