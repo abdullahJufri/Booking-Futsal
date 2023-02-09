@@ -49,6 +49,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
                 tvHistoryHarga.text = history.harga
                 tvHistoryJam.text = history.jam
                 tvOrder.text = history.orderId
+                tvItemLap.text = history.nama_lapangan
                 itemView.setOnClickListener {
 //
                     val intent = Intent(itemView.context, HistoryDetailActivity::class.java)

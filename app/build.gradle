@@ -16,6 +16,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -76,6 +77,10 @@ dependencies {
 //    implementation 'com.midtrans:uikit:1.34.0'
 
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    implementation 'com.android.support:multidex:1.0.3'
 
 
 }

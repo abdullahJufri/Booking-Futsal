@@ -41,7 +41,7 @@ class MyEditTextPassword : AppCompatEditText, View.OnTouchListener {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val length = s.length
-                if (length < 6){
+                if (length < 8){
                     error = context.getString(R.string.passwordValid)
                 }
             }

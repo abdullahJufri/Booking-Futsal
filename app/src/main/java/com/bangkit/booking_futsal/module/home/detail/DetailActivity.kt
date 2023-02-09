@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.bangkit.booking_futsal.R
+import com.bangkit.booking_futsal.data.remote.api.ApiConfig
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.databinding.ActivityDetailBinding
 import com.bangkit.booking_futsal.module.home.booking.BookingActivity
@@ -43,17 +44,18 @@ class DetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
         with(binding){
-            tvDtlName.text = viewmodel.futsalsItem.name
-            tvDtlLap.text = viewmodel.futsalsItem.jumlahLapangan
+            tvDtlName.text = futsal.name
+            tvDtlLap.text = futsal.jumlahLapangan
 
-            tvDtlAlamat.text = viewmodel.futsalsItem.alamatLapangan
+            tvDtlAlamat.text = futsal.alamatLapangan
 
-            tvDtlJamBuka.text = viewmodel.futsalsItem.jamBuka
-            tvDtlJamTutup.text = viewmodel.futsalsItem.jamTutup
+            tvDtlJamBuka.text = futsal.jamBuka
+            tvDtlJamTutup.text = futsal.jamTutup
 //            tvItemDesc.text = viewmodel.storyItem.description
 
+            val urlPhoto = "${ApiConfig.baseUrl}${futsal.foto}"
             Glide.with(imgDtlPhotos)
-                .load(viewmodel.futsalsItem.foto) // URL Avatar
+                .load(urlPhoto) // URL Avatar
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(imgDtlPhotos)

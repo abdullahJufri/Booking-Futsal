@@ -60,15 +60,49 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("history/update")
-    fun updateHistory(
+    fun updateStatus(
         @Field("order_id") orderId: String,
         @Field("status") status: String,
     ): Call<InsertResponse>
 
+    //Midtrans
 
     @GET("{order_id}/status")
     @Headers("Authorization: Basic U0ItTWlkLXNlcnZlci1MTTB4MHpFRHhPc2xXdnZvMlg3dDlXTFo6")
     fun getMidtransStatus(
         @Path("order_id") orderID: String,
     ): Call<MidtransResponse>
+
+
+    //Admin
+    @FormUrlEncoded
+    @POST("admin/check")
+    fun getUserStatus(
+        @Field("id_futsal") idFutsal: String,
+        @Field("order_id") orderID: String,
+    ): Call<CheckResponse>
+
+    @FormUrlEncoded
+    @POST("admin/futsal")
+    fun getAdminFutsal(
+        @Field("id_pengelola") idPengelola: String,
+    ): Call<DashboardResponse>
+
+    @FormUrlEncoded
+    @POST("admin/schedule")
+    fun getTransaksi(
+        @Field("id_futsal") idFutsal: String,
+        @Field("updated_at") updatedAt: String,
+    ): Call<TransaksiResponse>
+
+    @FormUrlEncoded
+    @POST("admin/futsal/update")
+    fun updateFutsal(
+        @Field("id_pengelola") idPengelola: String,
+        @Field("alamat_lapangan") alamatLapangan: String,
+        @Field("jumlah_lapangan") jumlahLapangan: String,
+        @Field("harga_pagi") jamBuka: String,
+        @Field("harga_malam") jamTutup: String,
+//        @Field("harga") harga: String,
+    ): Call<InsertResponse>
 }

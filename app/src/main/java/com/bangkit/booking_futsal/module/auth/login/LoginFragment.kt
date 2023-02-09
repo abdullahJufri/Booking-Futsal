@@ -13,13 +13,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.booking_futsal.module.main.MainActivity
 import com.bangkit.booking_futsal.R
+import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.databinding.FragmentLoginBinding
 import com.bangkit.booking_futsal.module.auth.AuthViewmodels
 import com.bangkit.booking_futsal.module.auth.register.RegisterFragment
+import com.bangkit.booking_futsal.module.route.RouteActivity
 import com.bangkit.booking_futsal.utils.AuthCallbackString
-import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.utils.ViewModelFactory
 import com.bangkit.booking_futsal.utils.showLoading
 
@@ -29,7 +29,6 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewmodel: AuthViewmodels
-
 
 
     override fun onCreateView(
@@ -70,8 +69,11 @@ class LoginFragment : Fragment() {
             viewmodel.login(email, password, object : AuthCallbackString {
                 override fun onResponse(success: String, message: String) {
                     if (success == "true") {
-                        val intent = Intent(activity, MainActivity::class.java)
-                        startActivity(intent)
+                        requireActivity().run {
+                            startActivity(Intent(this, RouteActivity::class.java))
+                            finish()
+                            onBackPressed()
+                        }
                     } else {
                         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
                     }
@@ -96,6 +98,12 @@ class LoginFragment : Fragment() {
 //                startActivity(intent)
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupViewModel() {
         viewmodel = ViewModelProvider(
             this,

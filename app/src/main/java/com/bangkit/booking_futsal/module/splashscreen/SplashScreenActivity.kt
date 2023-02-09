@@ -10,6 +10,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.booking_futsal.data.local.SettingPreferences
 import com.bangkit.booking_futsal.databinding.ActivitySplashScreenBinding
+import com.bangkit.booking_futsal.module.admin.dashboard.DashboardActivity
 import com.bangkit.booking_futsal.module.auth.AuthActivity
 import com.bangkit.booking_futsal.module.main.MainActivity
 import com.bangkit.booking_futsal.module.main.MainViewmodels
@@ -43,8 +44,15 @@ class SplashScreenActivity : AppCompatActivity() {
 
         mainViewModel.getUser().observe(this) {
             if (it.isLogin) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                if (it.roles == "1"){
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                    onBackPressed()
+                } else{
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                    finish()
+                    onBackPressed()
+                }
             } else {
                 val intent = Intent(this, AuthActivity::class.java)
                 startActivity(intent)

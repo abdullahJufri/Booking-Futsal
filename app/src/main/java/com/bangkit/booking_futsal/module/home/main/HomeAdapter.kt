@@ -2,6 +2,7 @@ package com.bangkit.booking_futsal.module.home.main
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.booking_futsal.R
+import com.bangkit.booking_futsal.data.remote.api.ApiConfig
 import com.bangkit.booking_futsal.data.remote.model.FutsalsItem
 import com.bangkit.booking_futsal.databinding.ItemRowFutsalBinding
 import com.bangkit.booking_futsal.module.home.detail.DetailActivity
@@ -51,8 +53,9 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
         fun bind(futsal: FutsalsItem) {
 
             with(binding) {
+                val urlPhoto = "${ApiConfig.baseUrl}${futsal.foto}"
                 Glide.with(imgItemImage)
-                    .load(futsal.foto) // URL Avatar
+                    .load(urlPhoto) // URL Avatar
                     .placeholder(R.drawable.ic_baseline_image_24)
                     .error(R.drawable.ic_baseline_broken_image_24)
                     .into(imgItemImage)

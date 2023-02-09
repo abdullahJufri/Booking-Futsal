@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.booking_futsal.data.local.SettingPreferences
+import com.bangkit.booking_futsal.module.admin.dashboard.DashboardViewmodels
 import com.bangkit.booking_futsal.module.auth.AuthViewmodels
 import com.bangkit.booking_futsal.module.history.main.HistoryViewmodels
 import com.bangkit.booking_futsal.module.main.MainViewmodels
@@ -13,6 +14,9 @@ class ViewModelFactory(private val pref: SettingPreferences, private val context
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
+            modelClass.isAssignableFrom(DashboardViewmodels::class.java) -> {
+                DashboardViewmodels(pref) as T
+            }
 
             modelClass.isAssignableFrom(MainViewmodels::class.java) -> {
                 MainViewmodels(pref) as T

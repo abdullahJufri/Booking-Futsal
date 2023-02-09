@@ -18,6 +18,49 @@
         tools:replace="android:allowBackup,android:usesCleartextTraffic,android:appComponentFactory"
         tools:targetApi="31">
         <activity
+            android:name=".module.admin.edit.EditFutsalActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".module.admin.transaksi.TransaksiActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".module.admin.insert.InsertAdminActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".module.admin.check.CheckActivity"
+            android:hardwareAccelerated="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".module.splashscreen.SplashScreenActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".module.admin.dashboard.DashboardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".module.history.detail.HistoryDetailActivity"
             android:exported="false">
             <meta-data
@@ -53,7 +96,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".module.splashscreen.SplashScreenActivity"
+            android:name=".module.route.RouteActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

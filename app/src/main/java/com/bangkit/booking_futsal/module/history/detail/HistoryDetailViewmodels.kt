@@ -72,7 +72,7 @@ class HistoryDetailViewmodels : ViewModel() {
         callback: AuthCallbackString
     ) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().updateHistory(orderId,status)
+        val client = ApiConfig.getApiService().updateStatus(orderId,status)
         client.enqueue(object : Callback<InsertResponse> {
             override fun onResponse(
                 call: Call<InsertResponse>,

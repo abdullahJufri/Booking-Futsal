@@ -20,7 +20,8 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
                 it[EMAIL_KEY] ?: "",
                 it[ID_KEY] ?: "",
                 it[ROLES_KEY] ?: "",
-                it[STATE_KEY] ?: false
+                it[STATE_KEY] ?: false,
+                it[FUTSAL_ID_KEY] ?: ""
             )
         }
     }
@@ -32,6 +33,7 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
             it[ID_KEY] = auth.id
             it[ROLES_KEY] = auth.roles
             it[STATE_KEY] = auth.isLogin
+            it[FUTSAL_ID_KEY] = auth.futsal_id ?: ""
 
         }
     }
@@ -42,6 +44,7 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
             it[EMAIL_KEY] = ""
             it[ID_KEY] = ""
             it[ROLES_KEY] = ""
+            it[FUTSAL_ID_KEY] = ""
         }
     }
 
@@ -94,6 +97,7 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
         private val ID_KEY = stringPreferencesKey("id")
         private val ROLES_KEY = stringPreferencesKey("roles")
         private val STATE_KEY = booleanPreferencesKey("state")
+        private val FUTSAL_ID_KEY = stringPreferencesKey("futsal_id")
 
         fun getInstance(dataStore: DataStore<Preferences>): SettingPreferences {
             return INSTANCE ?: synchronized(this) {
