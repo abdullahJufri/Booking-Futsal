@@ -146,7 +146,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 val inten = Intent(this, MainActivity::class.java)
                 startActivity(inten)
             })
-            .setMerchantBaseUrl("http://midtrans.djstudio.my.id/test.php/charge/")
+            .setMerchantBaseUrl("https://midtrans.djstudio.my.id/test.php/charge/")
             .enableLog(true)
             .setLanguage("id")
             .buildSDK()
@@ -193,6 +193,28 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                                 if (success == "true") {
                                     Toast.makeText(this@BookingActivity, "Berhasil", Toast.LENGTH_SHORT)
                                         .show()
+                                    Log.e("Abdul", "else: $c")
+                                    val transactionRequest = resulHarga?.toDouble()?.let { it1 ->
+                                        TransactionRequest(
+                                            orderID,
+                                            it1
+                                        )
+                                    }
+                                    val detail =
+                                        resulHarga?.toDouble()
+                                            ?.let { it1 -> ItemDetails(futsal.name, it1, 1, resultLap.toString()) }
+
+                                    val itemDetails = ArrayList<ItemDetails>()
+                                    if (detail != null) {
+                                        itemDetails.add(detail)
+                                    }
+                                    if (transactionRequest != null) {
+                                        uiKitDetail(transactionRequest, name, email)
+                                    }
+                                    Log.e("hargaFalse", resulHarga.toString())
+                                    transactionRequest?.itemDetails = itemDetails
+                                    MidtransSDK.getInstance().transactionRequest = transactionRequest
+                                    MidtransSDK.getInstance().startPaymentUiFlow(this@BookingActivity)
                                 } else {
                                     Toast.makeText(this@BookingActivity, "Gagal", Toast.LENGTH_SHORT)
                                         .show()
@@ -200,28 +222,7 @@ class BookingActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                             }
 
                         })
-                    Log.e("Abdul", "else: $c")
-                    val transactionRequest = resulHarga?.toDouble()?.let { it1 ->
-                        TransactionRequest(
-                            orderID,
-                            it1
-                        )
-                    }
-                    val detail =
-                        resulHarga?.toDouble()
-                            ?.let { it1 -> ItemDetails(futsal.name, it1, 1, resultLap.toString()) }
 
-                    val itemDetails = ArrayList<ItemDetails>()
-                    if (detail != null) {
-                        itemDetails.add(detail)
-                    }
-                    if (transactionRequest != null) {
-                        uiKitDetail(transactionRequest, name, email)
-                    }
-                    Log.e("hargaFalse", resulHarga.toString())
-                    transactionRequest?.itemDetails = itemDetails
-                    MidtransSDK.getInstance().transactionRequest = transactionRequest
-                    MidtransSDK.getInstance().startPaymentUiFlow(this)
 
                 }
 
